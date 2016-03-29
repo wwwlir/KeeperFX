@@ -16,12 +16,13 @@ import keepapp.view.RootLayoutController;
 
 public class MainApp extends Application {
 	
-	Stage primaryStage;
-	BorderPane rootLayout;
-	public AnchorPane personLayout;
+	private Stage primaryStage;
+	private BorderPane rootLayout;
+	//public AnchorPane personLayout;
 
+	public static void main(String[] args) {launch(args);}
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {//final Stage primaryStage При объявлении переменной final обязательно ее инициализация, но не в параметрах
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Title");
 		//this.primaryStage.getIcons().add(new Image("file:resources/images/Address_Book.png"));
@@ -32,11 +33,6 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
 	public void initRootLayout() throws IOException{
 		try {
 	        FXMLLoader loader = new FXMLLoader();
@@ -63,7 +59,7 @@ public class MainApp extends Application {
 		try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("View/PersonLayout.fxml"));
-            personLayout = (AnchorPane) loader.load();
+            AnchorPane personLayout = (AnchorPane) loader.load();
             rootLayout.setCenter(personLayout);
             PersonLayoutController controller = loader.getController();
             controller.setMainApp(this);

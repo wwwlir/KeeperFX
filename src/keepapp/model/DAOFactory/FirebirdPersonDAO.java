@@ -21,10 +21,10 @@ import keepapp.model.Person;
 public class FirebirdPersonDAO implements PersonDAO {
 	
 	int setIDPerson;
-	public final String DRIVER = "org.firebirdsql.jdbc.FBDriver";
-	public final String DBURL = "jdbc:firebirdsql:embedded:C:\\FirebirdDatabase\\FDBT.FDB";
+	private final String DRIVER = "org.firebirdsql.jdbc.FBDriver";
+	private final String DBURL = "jdbc:firebirdsql:embedded:C:\\FirebirdDatabase\\FDBT.FDB";
 	
-	public Connection createConnection(){
+	private Connection createConnection(){
 		Connection conn = null;
 		try {
 			Class.forName(DRIVER);
@@ -40,6 +40,10 @@ public class FirebirdPersonDAO implements PersonDAO {
 		}
 		
 		return conn;
+	}
+	private void closeConnection(){
+		//conn.close;
+		//statement.close();
 	}
 
 	@Override

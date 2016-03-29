@@ -17,8 +17,9 @@ public class PersonLayoutController {
 		for (int i = 1; i < 6; i++) {
             TreeItem<String> item = new TreeItem<String> ("Message" + i);            
             rootItem.getChildren().add(item);
-		}        
-		personTree.setVisible(true);
+		}
+		personTree.setRoot(rootItem);
+		//personTree.setVisible(true); //ѕо умолчанию свойство уже выставленно true
 	}
 	public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
