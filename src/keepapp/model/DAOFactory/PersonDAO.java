@@ -1,4 +1,4 @@
-package keepapp.model.ADO;
+package keepapp.model.DAOFactory;
 
 import java.util.Collection;
 

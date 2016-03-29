@@ -1,4 +1,4 @@
-package keepapp.model.ADO;
+package keepapp.model.DAOFactory;
 
 public abstract class DAOFactory {
 	public static final int FIREBIRD = 1;

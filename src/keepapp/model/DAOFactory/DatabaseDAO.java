@@ -1,4 +1,4 @@
-package keepapp.model.ADO;
+package keepapp.model.DAOFactory;
 
 public interface DatabaseDAO {
 	public void recreateDatabase();
