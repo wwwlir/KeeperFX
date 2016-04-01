@@ -12,7 +12,8 @@ import keepapp.logic.util.DateUtil;
 import keepapp.model.Person;
 
 public class PersonLayoutController {
-	MainApp mainApp;
+//	MainApp mainApp;
+	private InitUI initUI;
 	@FXML
 	private TreeView<Person> personTree;
 	@FXML
@@ -34,8 +35,8 @@ public class PersonLayoutController {
 	private void initialize(){
 		initTree();
 	}
-	public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
+	public void setMainApp(InitUI initUI) {
+        this.initUI = initUI;
     }
 	
 	public void initTree(){

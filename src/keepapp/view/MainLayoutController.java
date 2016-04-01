@@ -5,9 +5,13 @@ import javafx.scene.control.Button;
 import keepapp.MainApp;
 
 public class MainLayoutController {
-	private MainApp mainApp;
-	public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
+//	private MainApp mainApp;
+	private InitUI initUI;
+//	public void setMainApp(MainApp mainApp) {
+//        this.mainApp = mainApp;
+//    }
+	public void setMainApp(InitUI initUI) {
+        this.initUI = initUI;
     }
 	@FXML
 	private void inicialize(){
@@ -15,6 +19,6 @@ public class MainLayoutController {
 	}
 	@FXML
 	private void showPersonView(){
-		mainApp.showPersonLayout();
+		initUI.showPersonLayout();
 	}
 }
