@@ -46,7 +46,9 @@ public class Person {
         this.note = new SimpleStringProperty("");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
-
+    public String toString(){
+    	return this.getFirstName()+" "+this.getLastName();
+    }
     public String getFirstName() {
         return firstName.get();
     }
@@ -99,8 +101,8 @@ public class Person {
         return note.get();
     }
 
-    public void setNote(String city) {
-        this.note.set(city);
+    public void setNote(String note) {
+        this.note.set(note);
     }
 
     public StringProperty cityProperty() {

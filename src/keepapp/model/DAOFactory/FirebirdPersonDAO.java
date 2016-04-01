@@ -170,5 +170,30 @@ public class FirebirdPersonDAO implements PersonDAO {
 		
 		return personData;
 	}
+	@Override
+	public Person getPersonByID(int ID) {
+		String strSQL = "select * from PERSONS where ID=?";
+		try {
+			Connection conn = createConnection();
+			PreparedStatement stmt = conn.prepareStatement(strSQL);
+			stmt.setInt(1, ID);
+			ResultSet res =  stmt.executeQuery();
+			res.next();
+			Person person = new Person(res.getInt("id"),res.getString("fname"),res.getString("lname"));
+			person.setAddress(res.getString("address"));
+			person.setPhoneNumbers(res.getString("phoneNumbers"));
+			//person.setNote(res.getString("city"));
+			Date birthDate = res.getDate("birthday");
+			LocalDate birthLocalDate = birthDate.toLocalDate(); 
+			person.setBirthday(birthLocalDate);
+			stmt.close();
+			conn.close();
+			return person;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }
