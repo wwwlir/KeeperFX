@@ -38,8 +38,8 @@
       </GridPane>
       <HBox layoutX="87.0" layoutY="211.0" prefHeight="33.0" prefWidth="187.0">
          <children>
-            <Button defaultButton="true" layoutX="210.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleOk" text="OK" />
-            <Button layoutX="258.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="2.0" prefWidth="56.0" text="Cancel">
+            <Button defaultButton="true" layoutX="210.0" layoutY="211.0" mnemonicParsing="false" onAction="#handlerOk" text="OK" />
+            <Button layoutX="258.0" layoutY="211.0" mnemonicParsing="false" onAction="#handlerCancel" prefHeight="2.0" prefWidth="56.0" text="Cancel">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>

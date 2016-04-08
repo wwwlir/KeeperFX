@@ -111,10 +111,42 @@ public class PersonLayoutController {
 	}
 	@FXML
 	private void handleNewPerson(){
-		
+		Person tempPerson = new Person();
+        boolean okClicked = initUI.showPersonEditDialog(tempPerson);
+        if (okClicked) {
+//        	initUI.getPersonData().add(tempPerson);//Добавляет в коллекцию persondata, которая потом записывается в xml
+////          DAO
+//            DAOFactory firebirdDAO = DAOFactory.getDAOFactory(DAOFactory.FIREBIRD);
+//        	personDAO = firebirdDAO.getPersonDAO();
+//            personDAO.insertPerson(tempPerson);
+        	iperson.addPerson(tempPerson);
+        }
 	}
 	@FXML
 	private void handleEditePerson(){
-		
+		TreeItem<Person> selectedPerson = personTree.getSelectionModel().getSelectedItem();
+//		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+//        DAOFactory firebirdDAO = DAOFactory.getDAOFactory(DAOFactory.FIREBIRD);
+//    	personDAO = firebirdDAO.getPersonDAO();
+//    	personDAO.findPerson(selectedPerson);
+        if (selectedPerson != null) {
+            boolean okClicked = initUI.showPersonEditDialog(selectedPerson.getValue());
+            if (okClicked) {
+                showPersonDetails(selectedPerson);
+//                DAO
+                iperson.updatePersonByID(selectedPerson.getValue());
+//                personDAO.updatePerson(selectedPerson);
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(initUI.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+
+            alert.showAndWait();
+        }
 	}
 }

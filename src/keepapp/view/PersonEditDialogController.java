@@ -21,13 +21,15 @@ public class PersonEditDialogController {
     private TextField noteField;
     @FXML
     private TextField birthdayField;
+    
     private Person person;
     private Stage dialogStage;
+    boolean okClicked = false;
     
     @FXML
     private void initialize() {
     }
-    private void setPerson(Person person){
+    public void setPerson(Person person){
     	this.person = person;
 
         firstNameField.setText(person.getFirstName());
@@ -43,11 +45,24 @@ public class PersonEditDialogController {
     }
     @FXML
     private void handlerOk(){
-    	
+    	if (isInputValid()) {
+            person.setFirstName(firstNameField.getText());
+            person.setLastName(lastNameField.getText());
+            person.setAddress(addressField.getText());
+            person.setPhoneNumbers(phoneNumbersField.getText());
+            person.setNote(noteField.getText());
+            person.setBirthday(DateUtil.parse(birthdayField.getText()));
+            
+            okClicked = true;
+            dialogStage.close();
+        }
     }
     @FXML
     private void handlerCancel(){
-    	
+    	dialogStage.close();
+    }
+    public boolean isOkClicked() {
+        return okClicked;
     }
     private boolean isInputValid() {
         String errorMessage = "";

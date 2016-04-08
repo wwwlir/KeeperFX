@@ -49,7 +49,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 	@Override
 	public int insertPerson(Person person) {
 		Date getBirthday = Date.valueOf(person.getBirthday());
-		String strSQL = "insert into persons (fname, lname, address, phonenumbers, birthday) values (?,?,?,?,?)";
+		String strSQL = "insert into persons (fname, lname, address, phonenumbers, birthday, note) values (?,?,?,?,?,?)";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
@@ -58,6 +58,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			stmt.setString(3, person.getAddress());
 			stmt.setString(4, person.getPhoneNumbers());
 			stmt.setDate(5, getBirthday);
+			stmt.setString(6, person.getNote());
 			stmt.executeUpdate();
 			stmt.close();
 			conn.close();
@@ -122,15 +123,17 @@ public class FirebirdPersonDAO implements PersonDAO {
 			stmt.setString(3, person.getAddress());
 			stmt.setString(4, person.getPhoneNumbers());
 			stmt.setDate(5, getBirthday);
-			stmt.setInt(6, setIDPerson);
+			stmt.setInt(6, person.getPersonID().get());
 			stmt.executeUpdate();
 			stmt.close();
 			conn.close();
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return false;
+		
 	}
 
 	@Override

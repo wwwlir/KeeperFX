@@ -34,5 +34,17 @@ public class implPerson implements IPerson {
 	public boolean deletePersonByID(int ID) {
 		return personDAO.deletePersonByID(ID);
 	}
+	@Override
+	public boolean addPerson(Person person) {
+		// TODO Auto-generated method stub
+		personDAO.insertPerson(person);
+		return false;
+	}
+	@Override
+	public boolean updatePersonByID(Person person) {
+		// TODO Auto-generated method stub
+		
+		return personDAO.updatePerson(person);
+	}
 
 }
