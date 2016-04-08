@@ -1,14 +1,20 @@
 package keepapp.view;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import keepapp.MainApp;
 
 public class RootLayoutController {
 
     private MainApp mainApp;
+    private InitUI initUI;
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+    }
+    public void setInitUI(InitUI initUI){
+    	this.initUI = initUI;
     }
 
     @FXML
@@ -43,12 +49,18 @@ public class RootLayoutController {
     
     @FXML
     public void showMainView(){
-//    	try {
-//			mainApp.showMainLayout();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+  
+			try {
+				initUI.showMainLayout();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
     }
+    @FXML
+	private void showPersonView(){
+		initUI.showPersonLayout();
+	}
 //end
 }

@@ -8,4 +8,5 @@ import keepapp.model.Person;
 public interface IPerson {
 	public ObservableList<Person> getShortListPerson();
 	public Person getPersonByID(int ID);
+	public boolean deletePersonByID(int ID);
 }

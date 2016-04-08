@@ -35,6 +35,7 @@ public class InitUI extends Application {
 	        primaryStage.setScene(scene);
 	        RootLayoutController controller = loader.getController();
 	        //controller.setMainApp(this);
+	        controller.setInitUI(this);
 	        primaryStage.show();
 	    } catch (IOException e) {
 	        e.printStackTrace();
@@ -47,6 +48,9 @@ public class InitUI extends Application {
 		rootLayout.setCenter(mainLayout);
 		MainLayoutController mainLController = loader.getController();
 		mainLController.setMainApp(this);
+	}
+	public void closeMainLayout(){
+		
 	}
 	public void showPersonLayout(){
 		try {

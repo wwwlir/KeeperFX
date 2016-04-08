@@ -10,6 +10,7 @@ import keepapp.model.Person;
 public interface PersonDAO {
 	public int insertPerson(Person person);
 	public boolean deletePerson(Person person);
+	public boolean deletePersonByID(int ID);
 	public Person getPersonByID(int ID);
 	public Person findPerson(Person person);
 	public boolean updatePerson(Person person);

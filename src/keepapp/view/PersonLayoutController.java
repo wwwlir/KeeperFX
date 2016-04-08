@@ -2,9 +2,11 @@ package keepapp.view;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.Alert.AlertType;
 import keepapp.MainApp;
 import keepapp.API.IPerson;
 import keepapp.logic.ObjectRepository;
@@ -57,9 +59,10 @@ public class PersonLayoutController {
 	private Object showPersonDetails(TreeItem<Person> newValue) {
 		// TODO Auto-generated method stub
 		int ID = newValue.getValue().getPersonID().get();
-		Person person = iperson.getPersonByID(ID);
 		
-		if (person != null) {
+		
+		if (ID != 0) {
+			Person person = iperson.getPersonByID(ID);
             // Fill the labels with info from the person object.
             firstNameLabel.setText(person.getFirstName());
             lastNameLabel.setText(person.getLastName());
@@ -78,5 +81,40 @@ public class PersonLayoutController {
             birthdayLabel.setText("");
         }
 		return null;
+	}
+	@FXML
+	private void handleDeletePerson(){
+		TreeItem<Person> selectedPers = personTree.getSelectionModel().getSelectedItem();
+		int ID = selectedPers.getValue().getPersonID().get();
+		boolean isRemove = selectedPers.getParent().getChildren().remove(selectedPers);
+		
+		if (isRemove) {
+			iperson.deletePersonByID(ID);
+			
+			
+			
+//            personTable.getItems().remove(selectedIndex);
+//            //DAO
+//            DAOFactory firebirdDAO = DAOFactory.getDAOFactory(DAOFactory.FIREBIRD);
+//        	personDAO = firebirdDAO.getPersonDAO();
+//            personDAO.deletePerson(personTable.getSelectionModel().getSelectedItem());
+        } else {
+            // Nothing selected.
+//            Alert alert = new Alert(AlertType.WARNING);
+//            alert.initOwner(mainApp.getPrimaryStage());
+//            alert.setTitle("No Selection");
+//            alert.setHeaderText("No Person Selected");
+//            alert.setContentText("Please select a person in the table.");
+//
+//            alert.showAndWait();
+        }
+	}
+	@FXML
+	private void handleNewPerson(){
+		
+	}
+	@FXML
+	private void handleEditePerson(){
+		
 	}
 }

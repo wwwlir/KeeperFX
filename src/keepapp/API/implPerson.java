@@ -30,5 +30,9 @@ public class implPerson implements IPerson {
 		Person person = personDAO.getPersonByID(ID);
 		return person;
 	}
+	@Override
+	public boolean deletePersonByID(int ID) {
+		return personDAO.deletePersonByID(ID);
+	}
 
 }

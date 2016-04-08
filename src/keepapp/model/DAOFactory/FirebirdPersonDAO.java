@@ -195,5 +195,22 @@ public class FirebirdPersonDAO implements PersonDAO {
 		}
 		return null;
 	}
+	@Override
+	public boolean deletePersonByID(int ID) {//Удаление по индексу
+		String strSQL = "delete from PERSONS where id=?";
+		try {
+			Connection conn = createConnection();
+			PreparedStatement stmt = conn.prepareStatement(strSQL);
+			stmt.setInt(1, ID);
+			stmt.executeUpdate();
+			stmt.close();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }
