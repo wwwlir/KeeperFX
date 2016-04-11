@@ -73,25 +73,25 @@ public class PersonEditDialogController {
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
             errorMessage += "No valid last name!\n"; 
         }
-        if (addressField.getText() == null || addressField.getText().length() == 0) {
-            errorMessage += "No valid street!\n"; 
-        }
+//        if (addressField.getText() == null || addressField.getText().length() == 0) {
+//            errorMessage += "No valid street!\n"; 
+//        }
 
         if (phoneNumbersField.getText() == null || phoneNumbersField.getText().length() == 0) {
             errorMessage += "No valid postal code!\n"; 
         }
 
-        if (noteField.getText() == null || noteField.getText().length() == 0) {
-            errorMessage += "No valid city!\n"; 
-        }
+//        if (noteField.getText() == null || noteField.getText().length() == 0) {
+//            errorMessage += "No valid city!\n"; 
+//        }
 
-        if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-            errorMessage += "No valid birthday!\n";
-        } else {
+//        if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
+//            errorMessage += "No valid birthday!\n";
+//        } else {
             if (!DateUtil.validDate(birthdayField.getText())) {
                 errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
             }
-        }
+//        }
 
         if (errorMessage.length() == 0) {
             return true;

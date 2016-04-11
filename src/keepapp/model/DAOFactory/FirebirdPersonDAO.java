@@ -49,7 +49,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 	@Override
 	public int insertPerson(Person person) {
 		Date getBirthday = Date.valueOf(person.getBirthday());
-		String strSQL = "insert into persons (fname, lname, address, phonenumbers, birthday, note) values (?,?,?,?,?,?)";
+		String strSQL = "insert into persons (fname, lname, address, phonenumbers, birthday, note, ISGROUP) values (?,?,?,?,?,?,0)";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
@@ -114,7 +114,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 	public boolean updatePerson(Person person) {
 		// TODO Auto-generated method stub
 		Date getBirthday = Date.valueOf(person.getBirthday());
-		String strSQL = "update PERSONS set lname=?, fname=?, address=?, phonenumbers=?, birthday=? where id=?";
+		String strSQL = "update PERSONS set lname=?, fname=?, address=?, phonenumbers=?, birthday=?, note=? where id=?";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
@@ -123,7 +123,8 @@ public class FirebirdPersonDAO implements PersonDAO {
 			stmt.setString(3, person.getAddress());
 			stmt.setString(4, person.getPhoneNumbers());
 			stmt.setDate(5, getBirthday);
-			stmt.setInt(6, person.getPersonID().get());
+			stmt.setString(6, person.getNote());
+			stmt.setInt(7, person.getPersonID());
 			stmt.executeUpdate();
 			stmt.close();
 			conn.close();
@@ -175,7 +176,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 	}
 	@Override
 	public Person getPersonByID(int ID) {
-		String strSQL = "select * from PERSONS where ID=?";
+		String strSQL = "select ID, FNAME, LNAME, ADDRESS, PHONENUMBERS, BIRTHDAY, GROUPNAME, ISGROUP, NOTE from PERSONS where ID=?";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
@@ -185,7 +186,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			Person person = new Person(res.getInt("id"),res.getString("fname"),res.getString("lname"));
 			person.setAddress(res.getString("address"));
 			person.setPhoneNumbers(res.getString("phoneNumbers"));
-			//person.setNote(res.getString("city"));
+			person.setNote(res.getString("note"));
 			Date birthDate = res.getDate("birthday");
 			LocalDate birthLocalDate = birthDate.toLocalDate(); 
 			person.setBirthday(birthLocalDate);

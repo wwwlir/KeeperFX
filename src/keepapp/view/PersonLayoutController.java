@@ -41,51 +41,10 @@ public class PersonLayoutController {
         this.initUI = initUI;
     }
 	
-	public void initTree(){
-		TreeItem<Person> rootItem = new TreeItem<Person>();
-		rootItem.setExpanded(true);
-		
-		
-		ObservableList<Person> obsPersonList = iperson.getShortListPerson();
-		
-		for(Person person: obsPersonList){
-			TreeItem<Person> item = new TreeItem<Person> (person);//Отображаемое название берется из метода toString() объекта            
-            rootItem.getChildren().add(item);
-		}
-		personTree.setRoot(rootItem);
-		//personTree.setVisible(true); //По умолчанию свойство уже выставленно true
-		personTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
-	}
-	private Object showPersonDetails(TreeItem<Person> newValue) {
-		// TODO Auto-generated method stub
-		int ID = newValue.getValue().getPersonID().get();
-		
-		
-		if (ID != 0) {
-			Person person = iperson.getPersonByID(ID);
-            // Fill the labels with info from the person object.
-            firstNameLabel.setText(person.getFirstName());
-            lastNameLabel.setText(person.getLastName());
-            addressLabel.setText(person.getAddress());
-            phoneNumbersLabel.setText(person.getPhoneNumbers());
-            noteLabel.setText(person.getNote());
-            // TODO: We need a way to convert the birthday into a String! 
-            birthdayLabel.setText(DateUtil.format(person.getBirthday()));
-        } else {
-            // Person is null, remove all the text.
-            firstNameLabel.setText("");
-            lastNameLabel.setText("");
-            addressLabel.setText("");
-            phoneNumbersLabel.setText("");
-            noteLabel.setText("");
-            birthdayLabel.setText("");
-        }
-		return null;
-	}
 	@FXML
 	private void handleDeletePerson(){
 		TreeItem<Person> selectedPers = personTree.getSelectionModel().getSelectedItem();
-		int ID = selectedPers.getValue().getPersonID().get();
+		int ID = selectedPers.getValue().getPersonID();
 		boolean isRemove = selectedPers.getParent().getChildren().remove(selectedPers);
 		
 		if (isRemove) {
@@ -129,13 +88,15 @@ public class PersonLayoutController {
 //        DAOFactory firebirdDAO = DAOFactory.getDAOFactory(DAOFactory.FIREBIRD);
 //    	personDAO = firebirdDAO.getPersonDAO();
 //    	personDAO.findPerson(selectedPerson);
+//		Person tempPerson = iperson.getPersonByID(selectedPerson.getValue().getPersonID());//Раскомментировать
         if (selectedPerson != null) {
             boolean okClicked = initUI.showPersonEditDialog(selectedPerson.getValue());
             if (okClicked) {
-                showPersonDetails(selectedPerson);
+                
 //                DAO
                 iperson.updatePersonByID(selectedPerson.getValue());
 //                personDAO.updatePerson(selectedPerson);
+                showPersonDetails(selectedPerson);
             }
 
         } else {
@@ -148,5 +109,51 @@ public class PersonLayoutController {
 
             alert.showAndWait();
         }
+	}
+	
+	public void initTree(){
+		TreeItem<Person> rootItem = new TreeItem<Person>();
+		rootItem.setExpanded(true);
+		
+		
+		ObservableList<Person> obsPersonList = iperson.getShortListPerson();
+		
+		for(Person person: obsPersonList){
+			TreeItem<Person> item = new TreeItem<Person> (person);//Отображаемое название берется из метода toString() объекта            
+            rootItem.getChildren().add(item);
+		}
+		personTree.setRoot(rootItem);
+		//personTree.setVisible(true); //По умолчанию свойство уже выставленно true
+		personTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
+	}
+	private void writeInTreePerson(TreeItem<Person> Value){
+		int ID = Value.getValue().getPersonID();
+		Person tempPerson = iperson.getPersonByID(ID);
+		Value.getValue().setAddress(tempPerson.getAddress());
+		Value.getValue().setBirthday(tempPerson.getBirthday());
+		Value.getValue().setNote(tempPerson.getNote());
+		Value.getValue().setPhoneNumbers(tempPerson.getPhoneNumbers());
+	}
+	private Object showPersonDetails(TreeItem<Person> newValue) {
+		writeInTreePerson(newValue);
+		if (newValue != null) {
+
+            firstNameLabel.setText(newValue.getValue().getFirstName());
+            lastNameLabel.setText(newValue.getValue().getLastName());
+            addressLabel.setText(newValue.getValue().getAddress());
+            phoneNumbersLabel.setText(newValue.getValue().getPhoneNumbers());
+            noteLabel.setText(newValue.getValue().getNote());
+            // TODO: We need a way to convert the birthday into a String! 
+            birthdayLabel.setText(DateUtil.format(newValue.getValue().getBirthday()));
+        } else {
+            // Person is null, remove all the text.
+            firstNameLabel.setText("");
+            lastNameLabel.setText("");
+            addressLabel.setText("");
+            phoneNumbersLabel.setText("");
+            noteLabel.setText("");
+            birthdayLabel.setText("");
+        }
+		return null;
 	}
 }

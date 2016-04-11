@@ -105,7 +105,7 @@ public class Person {
         this.note.set(note);
     }
 
-    public StringProperty cityProperty() {
+    public StringProperty noteProperty() {
         return note;
     }
 
@@ -117,8 +117,11 @@ public class Person {
         this.birthday.set(birthday);
     }
 
-    public IntegerProperty getPersonID() {
+    public IntegerProperty PersonIDProperty() {
 		return personID;
+	}
+    public int getPersonID() {
+		return personID.get();
 	}
 
 	public ObjectProperty<LocalDate> birthdayProperty() {
