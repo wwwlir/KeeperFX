@@ -9,9 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import keepapp.MainApp;
 import keepapp.model.Person;
+import keepapp.view.PersonLayers.PersonEditDialogController;
+import keepapp.view.PersonLayers.PersonLayoutController;
 
 public class InitUI extends Application {
 	private Stage primaryStage;
@@ -44,13 +45,17 @@ public class InitUI extends Application {
 	        e.printStackTrace();
 	    }
 	}
-	public void showMainLayout() throws IOException{
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainApp.class.getResource("View/MainLayout.fxml"));
-		AnchorPane mainLayout = (AnchorPane)loader.load();
-		rootLayout.setCenter(mainLayout);
-		MainLayoutController mainLController = loader.getController();
-		mainLController.setMainApp(this);
+	public void showMainLayout(){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("View/MainLayout.fxml"));
+			AnchorPane mainLayout = (AnchorPane)loader.load();
+			rootLayout.setCenter(mainLayout);
+			MainLayoutController mainLController = loader.getController();
+			mainLController.setMainApp(this);
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 	public void closeMainLayout(){
 		
@@ -58,7 +63,7 @@ public class InitUI extends Application {
 	public void showPersonLayout(){
 		try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("View/PersonLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("View/PersonLayers/PersonLayout.fxml"));
             AnchorPane personLayout = (AnchorPane) loader.load();
             rootLayout.setCenter(personLayout);
             PersonLayoutController controller = loader.getController();
@@ -71,7 +76,7 @@ public class InitUI extends Application {
 	    try {
 	        // Load the fxml file and create a new stage for the popup dialog.
 	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
+	        loader.setLocation(MainApp.class.getResource("view/PersonLayers/PersonEditDialog.fxml"));
 	        AnchorPane page = (AnchorPane) loader.load();
 
 	        // Create the dialog Stage.

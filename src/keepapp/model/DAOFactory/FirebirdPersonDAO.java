@@ -6,9 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
+import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Collection;
 
 
@@ -23,9 +22,10 @@ public class FirebirdPersonDAO implements PersonDAO {
 	int setIDPerson;
 	private final String DRIVER = "org.firebirdsql.jdbc.FBDriver";
 	private final String DBURL = "jdbc:firebirdsql:embedded:C:\\FirebirdDatabase\\FDBT.FDB";
+	Connection conn = null;
 	
 	private Connection createConnection(){
-		Connection conn = null;
+		
 		try {
 			Class.forName(DRIVER);
 		} catch (ClassNotFoundException e1) {
@@ -41,9 +41,14 @@ public class FirebirdPersonDAO implements PersonDAO {
 		
 		return conn;
 	}
-	private void closeConnection(){
-		//conn.close;
-		//statement.close();
+	private void closeConnection(Statement statement){
+		try {
+			conn.close();
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -60,8 +65,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			stmt.setDate(5, getBirthday);
 			stmt.setString(6, person.getNote());
 			stmt.executeUpdate();
-			stmt.close();
-			conn.close();
+			closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,8 +83,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setInt(1, setIDPerson);
 			stmt.executeUpdate();
-			stmt.close();
-			conn.close();
+			closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,8 +104,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			res.next();
 			int type = res.getInt("ID");
 			this.setIDPerson = type;
-			stmt.close();
-			conn.close();
+			closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -126,8 +128,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			stmt.setString(6, person.getNote());
 			stmt.setInt(7, person.getPersonID());
 			stmt.executeUpdate();
-			stmt.close();
-			conn.close();
+			closeConnection(stmt);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -143,6 +144,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 		return null;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Collection selectPersonTO() {
 		// TODO Auto-generated method stub

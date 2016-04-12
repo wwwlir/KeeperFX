@@ -16,6 +16,7 @@ public interface PersonDAO {
 	public boolean updatePerson(Person person);
 	public ObservableList<Person> getPersonData();
 	public RowSet selectPersonRS();
+	@SuppressWarnings("rawtypes")
 	public Collection selectPersonTO();
 	public void printPersons();
 }

@@ -1,4 +1,4 @@
-package keepapp.view;
+package keepapp.view.PersonLayers;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,11 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
-import keepapp.MainApp;
 import keepapp.API.IPerson;
 import keepapp.logic.ObjectRepository;
 import keepapp.logic.util.DateUtil;
 import keepapp.model.Person;
+import keepapp.view.InitUI;
 
 public class PersonLayoutController {
 //	MainApp mainApp;
@@ -49,14 +49,6 @@ public class PersonLayoutController {
 		
 		if (isRemove) {
 			iperson.deletePersonByID(ID);
-			
-			
-			
-//            personTable.getItems().remove(selectedIndex);
-//            //DAO
-//            DAOFactory firebirdDAO = DAOFactory.getDAOFactory(DAOFactory.FIREBIRD);
-//        	personDAO = firebirdDAO.getPersonDAO();
-//            personDAO.deletePerson(personTable.getSelectionModel().getSelectedItem());
         } else {
             // Nothing selected.
 //            Alert alert = new Alert(AlertType.WARNING);
@@ -73,29 +65,17 @@ public class PersonLayoutController {
 		Person tempPerson = new Person();
         boolean okClicked = initUI.showPersonEditDialog(tempPerson);
         if (okClicked) {
-//        	initUI.getPersonData().add(tempPerson);//Добавляет в коллекцию persondata, которая потом записывается в xml
-////          DAO
-//            DAOFactory firebirdDAO = DAOFactory.getDAOFactory(DAOFactory.FIREBIRD);
-//        	personDAO = firebirdDAO.getPersonDAO();
-//            personDAO.insertPerson(tempPerson);
         	iperson.addPerson(tempPerson);
         }
 	}
 	@FXML
 	private void handleEditePerson(){
 		TreeItem<Person> selectedPerson = personTree.getSelectionModel().getSelectedItem();
-//		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
-//        DAOFactory firebirdDAO = DAOFactory.getDAOFactory(DAOFactory.FIREBIRD);
-//    	personDAO = firebirdDAO.getPersonDAO();
-//    	personDAO.findPerson(selectedPerson);
 //		Person tempPerson = iperson.getPersonByID(selectedPerson.getValue().getPersonID());//Раскомментировать
         if (selectedPerson != null) {
             boolean okClicked = initUI.showPersonEditDialog(selectedPerson.getValue());
             if (okClicked) {
-                
-//                DAO
                 iperson.updatePersonByID(selectedPerson.getValue());
-//                personDAO.updatePerson(selectedPerson);
                 showPersonDetails(selectedPerson);
             }
 
@@ -106,7 +86,6 @@ public class PersonLayoutController {
             alert.setTitle("No Selection");
             alert.setHeaderText("No Person Selected");
             alert.setContentText("Please select a person in the table.");
-
             alert.showAndWait();
         }
 	}
@@ -143,10 +122,8 @@ public class PersonLayoutController {
             addressLabel.setText(newValue.getValue().getAddress());
             phoneNumbersLabel.setText(newValue.getValue().getPhoneNumbers());
             noteLabel.setText(newValue.getValue().getNote());
-            // TODO: We need a way to convert the birthday into a String! 
             birthdayLabel.setText(DateUtil.format(newValue.getValue().getBirthday()));
         } else {
-            // Person is null, remove all the text.
             firstNameLabel.setText("");
             lastNameLabel.setText("");
             addressLabel.setText("");

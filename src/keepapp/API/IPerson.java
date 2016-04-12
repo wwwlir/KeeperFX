@@ -1,7 +1,5 @@
 package keepapp.API;
 
-import java.util.ArrayList;
-
 import javafx.collections.ObservableList;
 import keepapp.model.Person;
 

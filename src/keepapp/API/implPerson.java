@@ -1,11 +1,8 @@
 package keepapp.API;
 
-import java.util.ArrayList;
-
 import javafx.collections.ObservableList;
 import keepapp.model.Person;
 import keepapp.model.DAOFactory.DAOFactory;
-import keepapp.model.DAOFactory.FirebirdPersonDAO;
 import keepapp.model.DAOFactory.PersonDAO;
 
 public class implPerson implements IPerson {

@@ -1,10 +1,6 @@
 package keepapp.view;
 
-import java.io.IOException;
-
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import keepapp.MainApp;
 
 public class MainLayoutController {
 
@@ -23,11 +19,6 @@ public class MainLayoutController {
 	}
 	@FXML
 	private void showMainView(){
-		try {
-			initUI.showMainLayout();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		initUI.showMainLayout();
 	}
 }
