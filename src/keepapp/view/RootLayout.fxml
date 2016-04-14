@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -7,7 +10,7 @@
 
 <BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="keepapp.view.RootLayoutController">
    <top>
-      <AnchorPane prefHeight="44.0" prefWidth="700.0">
+      <AnchorPane prefHeight="44.0" prefWidth="700.0" BorderPane.alignment="TOP_CENTER">
          <children>
             <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" BorderPane.alignment="CENTER">
               <menus>
@@ -34,12 +37,14 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Button layoutX="41.0" layoutY="24.0" mnemonicParsing="false" onAction="#showPersonView" text="Контакты" AnchorPane.topAnchor="24.0" />
             <Button layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#showMainView" text="." />
+            <Button layoutX="41.0" layoutY="24.0" mnemonicParsing="false" onAction="#showPersonView" text="Контакты" />
+            <Button layoutX="113.0" layoutY="24.0" mnemonicParsing="false" onAction="#showKeePassView" text="KeePass" />
+            <Button layoutX="177.0" layoutY="24.0" mnemonicParsing="false" text="Ежедневник" />
          </children>
+         <effect>
+            <Blend mode="SCREEN" />
+         </effect>
       </AnchorPane>
    </top>
-   <right>
-      <AnchorPane prefHeight="465.0" prefWidth="32.0" BorderPane.alignment="CENTER" />
-   </right>
 </BorderPane>

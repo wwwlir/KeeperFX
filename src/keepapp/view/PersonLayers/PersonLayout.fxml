@@ -8,16 +8,16 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="keepapp.view.PersonLayers.PersonLayoutController">
    <children>
-      <BorderPane prefWidth="700.0">
+      <BorderPane prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <SplitPane dividerPositions="0.29797979797979796" prefHeight="500.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.29797979797979796" BorderPane.alignment="CENTER">
               <items>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                  <BorderPane>
                      <center>
                         <TreeView fx:id="personTree" BorderPane.alignment="CENTER" />
                      </center>
                      <top>
-                        <AnchorPane prefHeight="28.0" prefWidth="205.0" BorderPane.alignment="CENTER">
+                        <AnchorPane BorderPane.alignment="CENTER">
                            <children>
                               <Button layoutY="3.0" mnemonicParsing="false" onAction="#handleNewPerson" text="+" />
                               <Button layoutX="52.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleDeletePerson" text=" - " AnchorPane.leftAnchor="53.0">
@@ -36,7 +36,7 @@
                   </BorderPane>
                 <AnchorPane>
                      <children>
-                        <GridPane layoutX="6.0" layoutY="28.0" prefHeight="180.0" prefWidth="405.0">
+                        <GridPane layoutX="6.0" layoutY="28.0">
                            <children>
                               <Label text="Имя" />
                               <Label text="Фамилия" GridPane.rowIndex="1" />

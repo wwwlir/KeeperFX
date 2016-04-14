@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="keepapp.view.KeePassLayers.KeePassLayoutController">
+   <left>
+      <TreeView fx:id="treeGroupAccaunt" prefHeight="460.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <top>
+      <AnchorPane prefHeight="34.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="200.0" layoutY="6.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="256.0" layoutY="6.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="312.0" layoutY="6.0" mnemonicParsing="false" text="Button" />
+         </children></AnchorPane>
+   </top>
+   <center>
+      <TableView fx:id="accountTable" prefHeight="235.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="158.0" text="Название" />
+          <TableColumn fx:id="loginColumn" minWidth="0.0" prefWidth="93.0" text="Имя" />
+            <TableColumn fx:id="linkColumn" prefWidth="254.0" text="Ссылка" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <TitledPane text="untitled" BorderPane.alignment="CENTER">
+         <content>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Комментарии" GridPane.rowIndex="2" />
+                  <Label fx:id="noteLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </content>
+      </TitledPane>
+   </bottom>
+</BorderPane>

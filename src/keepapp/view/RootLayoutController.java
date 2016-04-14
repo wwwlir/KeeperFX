@@ -51,5 +51,9 @@ public class RootLayoutController {
 	private void showPersonView(){
 		initUI.showPersonLayout();
 	}
+    @FXML
+	private void showKeePassView(){
+		initUI.showKeePassLayout();
+	}
 //end
 }

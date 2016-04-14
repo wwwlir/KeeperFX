@@ -6,6 +6,7 @@ public abstract class DAOFactory {
 	
 	public abstract PersonDAO getPersonDAO();
 	public abstract DatabaseDAO getDatabaseDAO();
+	public abstract AccountDAO getAccountDAO();
 	
 	public static DAOFactory getDAOFactory(int whichFactory){
 		switch (whichFactory) {

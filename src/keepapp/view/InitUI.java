@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import keepapp.MainApp;
 import keepapp.model.Person;
+import keepapp.view.KeePassLayers.KeePassLayoutController;
 import keepapp.view.PersonLayers.PersonEditDialogController;
 import keepapp.view.PersonLayers.PersonLayoutController;
 
@@ -30,6 +31,10 @@ public class InitUI extends Application {
 			e.printStackTrace();
 		}
 	}
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+	
 	public void initRootLayout() throws IOException{
 		try {
 	        FXMLLoader loader = new FXMLLoader();
@@ -101,8 +106,19 @@ public class InitUI extends Application {
 	        return false;
 	    }
 	}
-	public Stage getPrimaryStage() {
-		return primaryStage;
+	
+	public void showKeePassLayout() {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("View/KeePassLayers/KeePassLayout.fxml"));
+            BorderPane keepassLayout = (BorderPane) loader.load();
+            rootLayout.setCenter(keepassLayout);
+            KeePassLayoutController controller = loader.getController();
+            controller.setItemsAccount();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 
 }
