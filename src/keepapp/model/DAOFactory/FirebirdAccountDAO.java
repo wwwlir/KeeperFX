@@ -94,6 +94,7 @@ public class FirebirdAccountDAO implements AccountDAO {
 			while (res.next()) {				
 				accountData.add(new Account(res.getInt("id"), res.getString("name"),res.getString("login")));
 			}
+			closeConnection(stmt);
 			return accountData;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

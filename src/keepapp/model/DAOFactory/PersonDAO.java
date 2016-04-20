@@ -15,6 +15,7 @@ public interface PersonDAO {
 	public Person findPerson(Person person);
 	public boolean updatePerson(Person person);
 	public ObservableList<Person> getPersonData();
+	public ObservableList<Person> getPersonGroup();
 	public RowSet selectPersonRS();
 	@SuppressWarnings("rawtypes")
 	public Collection selectPersonTO();

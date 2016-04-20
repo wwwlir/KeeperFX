@@ -54,7 +54,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 	@Override
 	public int insertPerson(Person person) {
 		Date getBirthday = Date.valueOf(person.getBirthday());
-		String strSQL = "insert into persons (fname, lname, address, phonenumbers, birthday, note, ISGROUP) values (?,?,?,?,?,?,0)";
+		String strSQL = "insert into persons (fname, lname, address, phonenumbers, birthday, note, ISGROUP, groupname) values (?,?,?,?,?,?,?,?)";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
@@ -64,6 +64,8 @@ public class FirebirdPersonDAO implements PersonDAO {
 			stmt.setString(4, person.getPhoneNumbers());
 			stmt.setDate(5, getBirthday);
 			stmt.setString(6, person.getNote());
+			stmt.setInt(7, person.getIsGroup());
+			stmt.setString(8, person.getGroup());
 			stmt.executeUpdate();
 			closeConnection(stmt);
 		} catch (SQLException e) {
@@ -116,7 +118,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 	public boolean updatePerson(Person person) {
 		// TODO Auto-generated method stub
 		Date getBirthday = Date.valueOf(person.getBirthday());
-		String strSQL = "update PERSONS set lname=?, fname=?, address=?, phonenumbers=?, birthday=?, note=? where id=?";
+		String strSQL = "update PERSONS set fname=?, lname=?, address=?, phonenumbers=?, birthday=?, note=? where id=?";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
@@ -160,14 +162,20 @@ public class FirebirdPersonDAO implements PersonDAO {
 	@Override
 	public ObservableList<Person> getPersonData() {//Переделать, получать ID, учесть большой объем
 		ObservableList<Person> personData = FXCollections.observableArrayList();
-		String strSQL = "select id, fname, lname from persons";
+		String strSQL = "select id, fname, lname, groupname from persons where isgroup=0";
+		Person tempPerson;
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {
-				personData.add(new Person(res.getInt("id"), res.getString("fname"),res.getString("lname")));
+				tempPerson = new Person(res.getInt("id"), res.getString("fname"),res.getString("lname"));
+				tempPerson.setGroup(res.getString("groupname"));
+				tempPerson.setIsGroup(0);
+				personData.add(tempPerson);
+//				personData.add(new Person(res.getInt("id"), res.getString("fname"),res.getString("lname")));
 			}
+			closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,14 +200,15 @@ public class FirebirdPersonDAO implements PersonDAO {
 			Date birthDate = res.getDate("birthday");
 			LocalDate birthLocalDate = birthDate.toLocalDate(); 
 			person.setBirthday(birthLocalDate);
-			stmt.close();
-			conn.close();
+			person.setGroup(res.getString("groupname"));
+			person.setIsGroup(res.getInt("isgroup"));
+			closeConnection(stmt);
 			return person;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 	@Override
 	public boolean deletePersonByID(int ID) {//Удаление по индексу
@@ -209,14 +218,39 @@ public class FirebirdPersonDAO implements PersonDAO {
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setInt(1, ID);
 			stmt.executeUpdate();
-			stmt.close();
-			conn.close();
+			closeConnection(stmt);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+	}
+	@Override
+	public ObservableList<Person> getPersonGroup() {
+		ObservableList<Person> personData = FXCollections.observableArrayList();
+		Person tempPerson;
+		String strSQL = "select id, fname, groupname from persons where isgroup=1";
+		try {
+			Connection conn = createConnection();
+			PreparedStatement stmt = conn.prepareStatement(strSQL);
+			ResultSet res = stmt.executeQuery();
+			while (res.next()) {
+				tempPerson = new Person(res.getInt("id"), res.getString("fname"),"");
+				tempPerson.setGroup(res.getString("groupname"));
+				tempPerson.setIsGroup(1);
+				personData.add(tempPerson);
+			}
+			closeConnection(stmt);
+			return personData;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+		
 	}
 
 }

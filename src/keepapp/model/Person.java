@@ -17,7 +17,8 @@ public class Person {
     private final StringProperty address;
     private final StringProperty phoneNumbers;
     private final StringProperty note;
-
+    private final IntegerProperty isGroup;
+    private final StringProperty group;
 
     /**
      * Default constructor.
@@ -43,6 +44,8 @@ public class Person {
         this.phoneNumbers = new SimpleStringProperty("+7");
         this.note = new SimpleStringProperty("");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+        this.isGroup = new SimpleIntegerProperty(0);
+        this.group = new SimpleStringProperty("");
     }
     public String toString(){
     	return this.getFirstName()+" "+this.getLastName();
@@ -125,4 +128,24 @@ public class Person {
 	public ObjectProperty<LocalDate> birthdayProperty() {
         return birthday;
     }
+
+	public IntegerProperty IsGroupProperty() {
+		return isGroup;
+	}
+	public Integer getIsGroup(){
+		return isGroup.get();
+	}
+	public void setIsGroup(int isGroup){
+		this.isGroup.set(isGroup);
+	}
+
+	public StringProperty groupProperty() {
+		return group;
+	}
+	public String getGroup(){
+		return group.get();
+	}
+	public void setGroup(String group){
+		this.group.set(group);
+	}
 }

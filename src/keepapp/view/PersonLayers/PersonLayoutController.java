@@ -1,5 +1,7 @@
 package keepapp.view.PersonLayers;
 
+import java.util.ArrayList;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,7 +16,7 @@ import keepapp.model.Person;
 import keepapp.view.InitUI;
 
 public class PersonLayoutController {
-//	MainApp mainApp;
+
 	private InitUI initUI;
 	@FXML
 	private TreeView<Person> personTree;
@@ -41,6 +43,7 @@ public class PersonLayoutController {
         this.initUI = initUI;
     }
 	
+	//Handlers metods
 	@FXML
 	private void handleDeletePerson(){
 		TreeItem<Person> selectedPers = personTree.getSelectionModel().getSelectedItem();
@@ -63,9 +66,14 @@ public class PersonLayoutController {
 	@FXML
 	private void handleNewPerson(){
 		Person tempPerson = new Person();
+		Person tempItem =  personTree.getSelectionModel().getSelectedItem().getValue();
+		String selsctedGroup = tempItem.getIsGroup()==1 ? tempItem.getFirstName() : tempItem.getGroup();
+		tempPerson.setIsGroup(0);
+		tempPerson.setGroup(selsctedGroup);
         boolean okClicked = initUI.showPersonEditDialog(tempPerson);
         if (okClicked) {
         	iperson.addPerson(tempPerson);
+        	initialize();
         }
 	}
 	@FXML
@@ -77,6 +85,7 @@ public class PersonLayoutController {
             if (okClicked) {
                 iperson.updatePersonByID(selectedPerson.getValue());
                 showPersonDetails(selectedPerson);
+                initialize();
             }
 
         } else {
@@ -90,21 +99,45 @@ public class PersonLayoutController {
         }
 	}
 	
-	public void initTree(){
-		TreeItem<Person> rootItem = new TreeItem<Person>();
+	
+	
+	//Other metods
+	public void initTree(){//Сделать отдельный метод в классе для всех TreeWiew
+		Person homePerson = new Person(-1, "Home", "");
+		homePerson.setIsGroup(1);
+		TreeItem<Person> rootItem = new TreeItem<Person>(homePerson);
 		rootItem.setExpanded(true);
 		
 		
 		ObservableList<Person> obsPersonList = iperson.getShortListPerson();
+		ObservableList<Person> obsGroupList = iperson.getGroupListPerson();
+		ArrayList<String> arrGroup = new ArrayList<>();
+		for(Person personGroup: obsGroupList){
+			TreeItem<Person> item = new TreeItem<Person> (personGroup);
+			item.setExpanded(true);
+			arrGroup.add(personGroup.getFirstName());
+			rootItem.getChildren().add(item);
+//			for(TreeItem<Person> selGroupItem:rootItem.getChildren()){
+//				
+//			}
+		}
 		
+		int arrId;
 		for(Person person: obsPersonList){
-			TreeItem<Person> item = new TreeItem<Person> (person);//Отображаемое название берется из метода toString() объекта            
-            rootItem.getChildren().add(item);
+			TreeItem<Person> item = new TreeItem<Person> (person);//Отображаемое название берется из метода toString() объекта
+			arrId = arrGroup.indexOf(person.getGroup());
+			if (arrId == -1) {
+				rootItem.getChildren().add(item);
+			} else {
+				rootItem.getChildren().get(arrId).getChildren().add(item);
+			}
+            
 		}
 		personTree.setRoot(rootItem);
 		//personTree.setVisible(true); //По умолчанию свойство уже выставленно true
 		personTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
 	}
+	
 	private void writeInTreePerson(TreeItem<Person> Value){
 		int ID = Value.getValue().getPersonID();
 		Person tempPerson = iperson.getPersonByID(ID);
@@ -114,7 +147,9 @@ public class PersonLayoutController {
 		Value.getValue().setPhoneNumbers(tempPerson.getPhoneNumbers());
 	}
 	private Object showPersonDetails(TreeItem<Person> newValue) {
-		writeInTreePerson(newValue);
+		if(!(newValue.getValue().getPersonID() < 0)){
+			writeInTreePerson(newValue);
+		}
 		if (newValue != null) {
 
             firstNameLabel.setText(newValue.getValue().getFirstName());

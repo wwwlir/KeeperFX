@@ -43,5 +43,10 @@ public class implPerson implements IPerson {
 		
 		return personDAO.updatePerson(person);
 	}
+	@Override
+	public ObservableList<Person> getGroupListPerson() {
+		ObservableList<Person> groupList = personDAO.getPersonGroup();
+		return groupList;
+	}
 
 }
