@@ -13,7 +13,6 @@ public class KeePassLayoutController {
 	
 	@FXML
 	private TreeView<Account> treeGroupAccaunt;
-	
 	@FXML
 	private TableView<Account> accountTable;
 	@FXML
@@ -22,7 +21,6 @@ public class KeePassLayoutController {
 	private TableColumn<Account, String> loginColumn;
 	@FXML
 	private TableColumn<Account, String> linkColumn;
-	
 	@FXML
 	private Label noteLabel;
 	

@@ -18,6 +18,12 @@ public class Account {
 	private StringProperty link;
 	private StringProperty note;
 	
+	public Account(){
+		this(null, null);
+	}
+	public Account(String name, String login){
+		this(0, name, login);
+	}
 	public Account(int ID, String name, String login) {
 		this.ID = new SimpleIntegerProperty(ID);
 		this.name = new SimpleStringProperty(name);
@@ -31,41 +37,40 @@ public class Account {
 		this.group = group;
 		this.isGroup = isGroup;
 	}
+	
+    //Setters getters
 	public IntegerProperty getIDPreperty(){return ID;}
 	public int getID(){return ID.get();}
+	public void setID(int id){this.ID.set(id);}
+	
 	public StringProperty getNameProperty() {return name;}
-	public void setName(StringProperty name) {this.name = name;}
-	public StringProperty getLoginProperty() {return login;}
-	public void setLogin(StringProperty login) {this.login = login;}
-	public StringProperty getPasswordProperty() {return password;}
-	public void setPassword(StringProperty password) {this.password = password;}
-	public StringProperty getGroupProperty() {return group;}
-	public void setGroup(StringProperty group) {this.group = group;}
-	public IntegerProperty getIsGroupProperty() {return isGroup;}
-	public void setIsGroup(IntegerProperty isGroup) {this.isGroup = isGroup;}
-	public StringProperty getLinkProperty() {
-		return link;
-	}
-	public String getLink(){
-		return link.get();
-	}
-	public void setLink(StringProperty link) {
-		this.link = link;
-	}
-	public StringProperty getNoteProperty() {
-		return note;
-	}
-	public String getNote(){
-		return note.get();
-	}
-	public void setNote(StringProperty note) {
-		this.note = note;
-	}
+	public void setName(String name) {this.name.set(name);}
 	public String getName() {return name.get();}
+	
+	public StringProperty getLoginProperty() {return login;}
+	public void setLogin(String login) {this.login.set(login);}
 	public String getLogin() {return login.get();}
+	
+	public StringProperty getPasswordProperty() {return password;}
+	public void setPassword(String password) {this.password.set(password);}
 	public String getPassword() {return password.get();}
+	
+	public StringProperty getGroupProperty() {return group;}
+	public void setGroup(String group) {this.group.set(group);}
 	public String getGroup() {return group.get();}
+	
+	public IntegerProperty getIsGroupProperty() {return isGroup;}
+	public void setIsGroup(int isGroup) {this.isGroup.set(isGroup);}
 	public int getIsGroup() {return isGroup.get();}
+	
+	public StringProperty getLinkProperty() {return link;}
+	public String getLink(){return link.get();}
+	public void setLink(String link){this.link.set(link);}
+	
+	public StringProperty getNoteProperty(){return note;}
+	public String getNote(){return note.get();}
+	public void setNote(String note){this.note.set(note);}
+	
 	
 	public String toString(){
 		return name.get();
