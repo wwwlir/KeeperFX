@@ -10,13 +10,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import keepapp.MainApp;
+import keepapp.model.Account;
 import keepapp.model.Person;
+import keepapp.view.KeePassLayers.KeePassEditDialogController;
 import keepapp.view.KeePassLayers.KeePassLayoutController;
 import keepapp.view.PersonLayers.PersonEditDialogController;
 import keepapp.view.PersonLayers.PersonLayoutController;
 
 public class InitUI extends Application {
-	private Stage primaryStage;
+	private static Stage primaryStage;
 	private BorderPane rootLayout;
 	
 	@Override
@@ -114,11 +116,37 @@ public class InitUI extends Application {
             BorderPane keepassLayout = (BorderPane) loader.load();
             rootLayout.setCenter(keepassLayout);
             KeePassLayoutController controller = loader.getController();
-            controller.setItemsAccount();
+//            controller.setItemsAccount();
             
         } catch (Exception e) {
             e.printStackTrace();
         }
+	}
+	public static boolean showAccountEditDialog(Account account) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/KeePassLayers/KeePassEditDialog.fxml"));
+			AnchorPane page = (AnchorPane)loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit account");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+
+	        // Set the person into the controller.
+	        KeePassEditDialogController controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+	        controller.setAccount(account);
+
+	        // Show the dialog and wait until the user closes it
+	        dialogStage.showAndWait();
+
+	        return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+	        return false;
+		}
 	}
 
 }

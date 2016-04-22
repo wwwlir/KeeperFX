@@ -1,5 +1,7 @@
 package keepapp.view.KeePassLayers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
@@ -30,7 +32,12 @@ public class KeePassEditDialogController {
 	
 	@FXML
 	private void initialize(){
-		
+		isGroupCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> ov,
+                    Boolean old_val, Boolean new_val) {
+                        checkedIsGroup(new_val);
+                }
+            });
 	}
 	public void setAccount(Account account){
 		this.account = account;
@@ -49,7 +56,7 @@ public class KeePassEditDialogController {
         this.dialogStage = dialogStage;
     }
 	
-	//Handler metods
+	//Handler methods
 	@FXML
 	private void handlerOk(){
     	if (isInputValid()) {
@@ -95,5 +102,20 @@ public class KeePassEditDialogController {
 	}
 	private void checkedIsGroup(boolean val){
 		
+		
+		loginField.setDisable(val);
+		passwordField.setDisable(val);
+		rePasswordField.setDisable(val);
+		linkField.setDisable(val);
+		noteField.setDisable(val);
+		
+		
+		loginField.setText("");
+		passwordField.setText("");
+		rePasswordField.setText("");
+		linkField.setText("");
+		noteField.setText("");
+		account.setIsGroup(val?1:0);
+
 	}
 }

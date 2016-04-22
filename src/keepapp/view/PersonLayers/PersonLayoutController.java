@@ -43,7 +43,7 @@ public class PersonLayoutController {
         this.initUI = initUI;
     }
 	
-	//Handlers metods
+	//Handlers methods
 	@FXML
 	private void handleDeletePerson(){
 		TreeItem<Person> selectedPers = personTree.getSelectionModel().getSelectedItem();
@@ -66,10 +66,14 @@ public class PersonLayoutController {
 	@FXML
 	private void handleNewPerson(){
 		Person tempPerson = new Person();
-		Person tempItem =  personTree.getSelectionModel().getSelectedItem().getValue();
-		String selsctedGroup = tempItem.getIsGroup()==1 ? tempItem.getFirstName() : tempItem.getGroup();
+		if(personTree.getSelectionModel().getSelectedItem() != null){
+			Person selectItem =  personTree.getSelectionModel().getSelectedItem().getValue();//Может быть никого не выделенно
+			String selsctedGroup = selectItem.getIsGroup()==1 ? selectItem.getFirstName() : selectItem.getGroup();
+			tempPerson.setGroup(selsctedGroup);
+		}
+		
 		tempPerson.setIsGroup(0);
-		tempPerson.setGroup(selsctedGroup);
+		
         boolean okClicked = initUI.showPersonEditDialog(tempPerson);
         if (okClicked) {
         	iperson.addPerson(tempPerson);
@@ -101,7 +105,7 @@ public class PersonLayoutController {
 	
 	
 	
-	//Other metods
+	//Other methods
 	public void initTree(){//Сделать отдельный метод в классе для всех TreeWiew
 		Person homePerson = new Person(-1, "Home", "");
 		homePerson.setIsGroup(1);
@@ -138,7 +142,7 @@ public class PersonLayoutController {
 		personTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
 	}
 	
-	private void writeInTreePerson(TreeItem<Person> Value){
+	private void loadTreePerson(TreeItem<Person> Value){
 		int ID = Value.getValue().getPersonID();
 		Person tempPerson = iperson.getPersonByID(ID);
 		Value.getValue().setAddress(tempPerson.getAddress());
@@ -148,7 +152,7 @@ public class PersonLayoutController {
 	}
 	private Object showPersonDetails(TreeItem<Person> newValue) {
 		if(!(newValue.getValue().getPersonID() < 0)){
-			writeInTreePerson(newValue);
+			loadTreePerson(newValue);
 		}
 		if (newValue != null) {
 

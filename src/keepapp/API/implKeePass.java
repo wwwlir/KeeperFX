@@ -24,26 +24,23 @@ public class implKeePass implements IKeePass {
 
 	@Override
 	public Account getAccountByID(int ID) {
-		// TODO Auto-generated method stub
-		return null;
+		return accountDAO.getAccountByID(ID);
 	}
 
 	@Override
 	public boolean deleteAccountByID(int ID) {
-		// TODO Auto-generated method stub
-		return false;
+		return accountDAO.deleteAccountByID(ID);
 	}
 
 	@Override
 	public boolean addAccount(Account account) {
-		// TODO Auto-generated method stub
+		accountDAO.insertAccount(account);
 		return false;
 	}
 
 	@Override
 	public boolean updateAccountByID(Account account) {
-		// TODO Auto-generated method stub
-		return false;
+		return accountDAO.updateAccount(account);
 	}
 
 }

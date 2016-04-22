@@ -60,7 +60,7 @@ public class PersonEditDialogController {
     
     
     
-    //Handlers metods
+    //Handlers methods
     @FXML
     private void handlerOk(){
 //    	if (isInputValid()) {
@@ -80,14 +80,8 @@ public class PersonEditDialogController {
     private void handlerCancel(){
     	dialogStage.close();
     }
-    private void handlerCheckIsGroup(){
-    	
-    }
     
-    
-    
-    
-    //More metods
+    //More methods
     public boolean isOkClicked() {
         return okClicked;
     }

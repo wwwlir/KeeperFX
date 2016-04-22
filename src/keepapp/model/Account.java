@@ -9,14 +9,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Account {
-	private IntegerProperty ID;
-	private StringProperty name;
-	private StringProperty login;
-	private StringProperty password;
-	private StringProperty group;
-	private IntegerProperty isGroup;
-	private StringProperty link;
-	private StringProperty note;
+	private final IntegerProperty ID;
+	private final StringProperty name;
+	private final StringProperty login;
+	private final StringProperty password;
+	private final StringProperty group;
+	private final IntegerProperty isGroup;
+	private final StringProperty link;
+	private final StringProperty note;
 	
 	public Account(){
 		this(null, null);
@@ -24,18 +24,15 @@ public class Account {
 	public Account(String name, String login){
 		this(0, name, login);
 	}
-	public Account(int ID, String name, String login) {
+	public Account(int ID,String name,String login){
 		this.ID = new SimpleIntegerProperty(ID);
 		this.name = new SimpleStringProperty(name);
 		this.login = new SimpleStringProperty(login);
-	}
-	public Account(StringProperty name, StringProperty login, StringProperty password, StringProperty group,
-			IntegerProperty isGroup) {
-		this.name = name;
-		this.login = login;
-		this.password = password;
-		this.group = group;
-		this.isGroup = isGroup;
+		this.password = new SimpleStringProperty("");
+		this.group = new SimpleStringProperty("");
+		this.isGroup = new SimpleIntegerProperty(0);
+		this.link = new SimpleStringProperty("");
+		this.note = new SimpleStringProperty("");
 	}
 	
     //Setters getters
