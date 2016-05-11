@@ -42,11 +42,11 @@ public class KeePassEditDialogController {
 	public void setAccount(Account account){
 		this.account = account;
 		nameField.setText(account.getName());
-		loginField.setText(account.getName());
-		passwordField.setText(account.getName());
-		rePasswordField.setText(account.getName());
-		linkField.setText(account.getName());
-		noteField.setText(account.getName());
+		loginField.setText(account.getLogin());
+		passwordField.setText(account.getPassword());
+		rePasswordField.setText(account.getPassword());
+		linkField.setText(account.getLink());
+		noteField.setText(account.getNote());
 		if(account.getIsGroup()==1){
 			checkedIsGroup(true);
 			isGroupCheck.setDisable(true);
@@ -83,7 +83,7 @@ public class KeePassEditDialogController {
 	private boolean isInputValid(){
 		String errorMessage = "";
 		if(!isGroupCheck.selectedProperty().get()){
-			if(passwordField.getText() != rePasswordField.getText()){
+			if(!(passwordField.getText().equals(rePasswordField.getText()))){
 				errorMessage = "Пароли не совпалают!";
 			}
 		}

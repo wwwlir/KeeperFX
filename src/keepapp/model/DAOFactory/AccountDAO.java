@@ -13,6 +13,8 @@ public interface AccountDAO {
 	public Account findAccount(Account account);
 	public boolean updateAccount(Account account);
 	public ObservableList<Account> getAccountData();
+	public ObservableList<Account> getAccountGroup();
+	public ObservableList<Account> getShortAccounts(String groupName);
 	public RowSet selectAccountRS();
 	@SuppressWarnings("rawtypes")
 	public Collection selectAccountTO();

@@ -116,6 +116,7 @@ public class InitUI extends Application {
             BorderPane keepassLayout = (BorderPane) loader.load();
             rootLayout.setCenter(keepassLayout);
             KeePassLayoutController controller = loader.getController();
+            controller.setMainApp(this);
 //            controller.setItemsAccount();
             
         } catch (Exception e) {

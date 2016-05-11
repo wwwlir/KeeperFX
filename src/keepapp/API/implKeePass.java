@@ -42,5 +42,14 @@ public class implKeePass implements IKeePass {
 	public boolean updateAccountByID(Account account) {
 		return accountDAO.updateAccount(account);
 	}
+	@Override
+	public ObservableList<Account> getGroupListAccount() {
+		ObservableList<Account> accountGroupList = accountDAO.getAccountGroup();
+		return accountGroupList;
+	}
+	@Override
+	public ObservableList<Account> getShortListAccountsF(String groupName) {
+		return accountDAO.getShortAccounts(groupName);
+	}
 
 }

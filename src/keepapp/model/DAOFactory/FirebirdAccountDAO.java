@@ -151,7 +151,7 @@ public class FirebirdAccountDAO implements AccountDAO {
 	@Override
 	public ObservableList<Account> getAccountData() {
 		ObservableList<Account> accountData = FXCollections.observableArrayList();
-		String strSQL = "select id, name, login from accounts";
+		String strSQL = "select id, name, login from accounts where isgroup=0";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
@@ -184,6 +184,51 @@ public class FirebirdAccountDAO implements AccountDAO {
 	public void printAccount() {
 		// TODO Auto-generated method stub
 
+	}
+	@Override
+	public ObservableList<Account> getAccountGroup() {
+		ObservableList<Account> accountGroup = FXCollections.observableArrayList();
+		String strSQL = "select id, name, groupname from accounts where isgroup=1";
+		try {
+			Connection conn = createConnection();
+			PreparedStatement stmt = conn.prepareStatement(strSQL);
+			ResultSet res = stmt.executeQuery();
+			while (res.next()) {
+				Account tempAccount = new Account(res.getInt("id"), res.getString("name"),"");
+				tempAccount.setGroup(res.getString("groupname"));
+				accountGroup.add(tempAccount);
+			}
+			closeConnection(stmt);
+			return accountGroup;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public ObservableList<Account> getShortAccounts(String groupName) {//Сделать более универсальным для получения коллекций
+		ObservableList<Account> accountData = FXCollections.observableArrayList();
+//		String strTemp = "select id, name, login from accounts";
+//		if(groupName.length() != 0){
+//			strTemp.concat(" where isgroup=0 and groupname=?");
+//		}
+		String strSQL = "select id, name, login from accounts where isgroup=0 and groupname=?";
+		try {
+			Connection conn = createConnection();
+			PreparedStatement stmt = conn.prepareStatement(strSQL);
+			stmt.setString(1, groupName);
+			ResultSet res = stmt.executeQuery();
+			while (res.next()) {				
+				accountData.add(new Account(res.getInt("id"), res.getString("name"),res.getString("login")));
+			}
+			closeConnection(stmt);
+			return accountData;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
