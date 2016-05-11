@@ -41,6 +41,7 @@
             <Button layoutX="41.0" layoutY="24.0" mnemonicParsing="false" onAction="#showPersonView" text="Контакты" />
             <Button layoutX="113.0" layoutY="24.0" mnemonicParsing="false" onAction="#showKeePassView" text="KeePass" />
             <Button layoutX="177.0" layoutY="24.0" mnemonicParsing="false" text="Ежедневник" />
+            <Button layoutX="262.0" layoutY="24.0" mnemonicParsing="false" text="KeeLinks" />
          </children>
          <effect>
             <Blend mode="SCREEN" />
