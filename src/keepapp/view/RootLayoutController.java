@@ -55,5 +55,9 @@ public class RootLayoutController {
 	private void showKeePassView(){
 		initUI.showKeePassLayout();
 	}
+    @FXML
+	private void showKeeLinkView(){
+		initUI.showKeeLinkLayout();
+	}
 //end
 }

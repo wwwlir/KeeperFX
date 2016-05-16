@@ -11,7 +11,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import keepapp.MainApp;
 import keepapp.model.Account;
+import keepapp.model.Link;
 import keepapp.model.Person;
+import keepapp.view.KeeLinkLayers.KeeLinkEditDialogController;
+import keepapp.view.KeeLinkLayers.KeeLinkLayoutController;
 import keepapp.view.KeePassLayers.KeePassEditDialogController;
 import keepapp.view.KeePassLayers.KeePassLayoutController;
 import keepapp.view.PersonLayers.PersonEditDialogController;
@@ -139,6 +142,47 @@ public class InitUI extends Application {
 	        KeePassEditDialogController controller = loader.getController();
 	        controller.setDialogStage(dialogStage);
 	        controller.setAccount(account);
+
+	        // Show the dialog and wait until the user closes it
+	        dialogStage.showAndWait();
+
+	        return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+	        return false;
+		}
+	}
+	
+	public void showKeeLinkLayout() {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("View/KeeLinkLayers/KeeLinkLayout.fxml"));
+            BorderPane keelinkLayout = (BorderPane) loader.load();
+            rootLayout.setCenter(keelinkLayout);
+            KeeLinkLayoutController controller = loader.getController();
+            controller.setMainApp(this);
+//            controller.setItemsAccount();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+	public static boolean showLinkEditDialog(Link link) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/KeeLinkLayers/KeeLinkEditDialog.fxml"));
+			AnchorPane page = (AnchorPane)loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit link");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+
+	        // Set the person into the controller.
+	        KeeLinkEditDialogController controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+	        controller.setLink(link);
 
 	        // Show the dialog and wait until the user closes it
 	        dialogStage.showAndWait();

@@ -12,10 +12,9 @@ import javax.sql.RowSet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import keepapp.model.Account;
+import keepapp.model.Link;
 
-public class FirebirdAccountDAO implements AccountDAO {
-	
+public class FirebirdLinkDAO implements LinkDAO {
 	private final String DRIVER = "org.firebirdsql.jdbc.FBDriver";
 	private final String DBURL = "jdbc:firebirdsql:embedded:C:\\FirebirdDatabase\\FDBT.FDB";
 	Connection conn = null;
@@ -47,37 +46,34 @@ public class FirebirdAccountDAO implements AccountDAO {
 		}
 	}
 	@Override
-	public int insertAccount(Account account) {
-		String strSQL = "insert into accounts (NAME, LOGIN, PASSWD, GROUPNAME, LINK, NOTE, ISGROUP) values (?,?,?,?,?,?,?)";
+	public int insertLink(Link link) {
+		String strSQL = "insert into links (NAME, GROUPNAME, LINK, NOTE, ISGROUP) values (?,?,?,?,?)";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
-			stmt.setString(1, account.getName());
-			stmt.setString(2, account.getLogin());
-			stmt.setString(3, account.getPassword());
-			stmt.setString(4, account.getGroup());
-			stmt.setString(5, account.getLink());
-			stmt.setString(6, account.getNote());
-			stmt.setInt(7, account.getIsGroup());
+			stmt.setString(1, link.getName());
+			stmt.setString(2, link.getGroup());
+			stmt.setString(3, link.getLink());
+			stmt.setString(4, link.getNote());
+			stmt.setInt(5, link.getIsGroup());
 			stmt.executeUpdate();
 			closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 		return 0;
 	}
 
 	@Override
-	public boolean deleteAccount(Account account) {
+	public boolean deleteLink(Link link) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean deleteAccountByID(int ID) {
-		String strSQL = "delete from ACCOUNTS where id=?";
+	public boolean deleteLinkByID(int ID) {
+		String strSQL = "delete from LINKS where id=?";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
@@ -93,22 +89,21 @@ public class FirebirdAccountDAO implements AccountDAO {
 	}
 
 	@Override
-	public Account getAccountByID(int ID) {
-		String strSQL = "select ID, NAME, LOGIN, PASSWD, GROUPNAME, ISGROUP, LINK, NOTE from ACCOUNTS where ID=?";
+	public Link getLinkByID(int ID) {
+		String strSQL = "select ID, NAME, GROUPNAME, ISGROUP, LINK, NOTE from LINKS where ID=?";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setInt(1, ID);
 			ResultSet res =  stmt.executeQuery();
 			res.next();
-			Account account = new Account(res.getInt("id"),res.getString("name"),res.getString("login"));
-			account.setPassword(res.getString("passwd"));
-			account.setLink(res.getString("link"));
-			account.setNote(res.getString("note"));
-			account.setIsGroup(res.getInt("isgroup"));
-			account.setGroup(res.getString("groupname"));
+			Link link = new Link(res.getInt("id"),res.getString("name"));
+			link.setLink(res.getString("link"));
+			link.setNote(res.getString("note"));
+			link.setIsGroup(res.getInt("isgroup"));
+			link.setGroup(res.getString("groupname"));
 			closeConnection(stmt);
-			return account;
+			return link;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -117,24 +112,22 @@ public class FirebirdAccountDAO implements AccountDAO {
 	}
 
 	@Override
-	public Account findAccount(Account account) {
+	public Link findLink(Link link) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateAccount(Account account) {
-		String strSQL = "update ACCOUNTS set name=?, login=?, passwd=?, groupname=?, link=?, note=? where id=?";
+	public boolean updateLink(Link link) {
+		String strSQL = "update LINKS set name=?, groupname=?, link=?, note=? where id=?";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
-			stmt.setString(1, account.getName());
-			stmt.setString(2, account.getLogin());
-			stmt.setString(3, account.getPassword());
-			stmt.setString(4, account.getGroup());
-			stmt.setString(5, account.getLink());
-			stmt.setString(6, account.getNote());
-			stmt.setInt(7, account.getID());
+			stmt.setString(1, link.getName());
+			stmt.setString(2, link.getGroup());
+			stmt.setString(3, link.getLink());
+			stmt.setString(4, link.getNote());
+			stmt.setInt(5, link.getID());
 			stmt.executeUpdate();
 			closeConnection(stmt);
 			return true;
@@ -146,18 +139,18 @@ public class FirebirdAccountDAO implements AccountDAO {
 	}
 
 	@Override
-	public ObservableList<Account> getAccountData() {
-		ObservableList<Account> accountData = FXCollections.observableArrayList();
-		String strSQL = "select id, name, login from accounts where isgroup=0";
+	public ObservableList<Link> getLinkData() {
+		ObservableList<Link> linkData = FXCollections.observableArrayList();
+		String strSQL = "select id, name from links where isgroup=0";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {				
-				accountData.add(new Account(res.getInt("id"), res.getString("name"),res.getString("login")));
+				linkData.add(new Link(res.getInt("id"), res.getString("name")));
 			}
 			closeConnection(stmt);
-			return accountData;
+			return linkData;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,66 +159,68 @@ public class FirebirdAccountDAO implements AccountDAO {
 	}
 
 	@Override
-	public RowSet selectAccountRS() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection selectAccountTO() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void printAccount() {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public ObservableList<Account> getAccountGroup() {
-		ObservableList<Account> accountGroup = FXCollections.observableArrayList();
-		String strSQL = "select id, name, groupname from accounts where isgroup=1";
+	public ObservableList<Link> getLinkGroup() {
+		ObservableList<Link> linkGroup = FXCollections.observableArrayList();
+		String strSQL = "select id, name, groupname from links where isgroup=1";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {
-				Account tempAccount = new Account(res.getInt("id"), res.getString("name"),"");
-				tempAccount.setGroup(res.getString("groupname"));
-				accountGroup.add(tempAccount);
+				Link tempLink = new Link(res.getInt("id"), res.getString("name"));
+				tempLink.setGroup(res.getString("groupname"));
+				linkGroup.add(tempLink);
 			}
 			closeConnection(stmt);
-			return accountGroup;
+			return linkGroup;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 	}
+
 	@Override
-	public ObservableList<Account> getShortAccounts(String groupName) {//Сделать более универсальным для получения коллекций
-		ObservableList<Account> accountData = FXCollections.observableArrayList();
+	public ObservableList<Link> getShortLink(String groupName) {
+		ObservableList<Link> linkData = FXCollections.observableArrayList();
 //		String strTemp = "select id, name, login from accounts";
 //		if(groupName.length() != 0){
 //			strTemp.concat(" where isgroup=0 and groupname=?");
 //		}
-		String strSQL = "select id, name, login from accounts where isgroup=0 and groupname=?";
+		String strSQL = "select id, name from links where isgroup=0 and groupname=?";
 		try {
 			Connection conn = createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setString(1, groupName);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {				
-				accountData.add(new Account(res.getInt("id"), res.getString("name"),res.getString("login")));
+				linkData.add(new Link(res.getInt("id"), res.getString("name")));
 			}
 			closeConnection(stmt);
-			return accountData;
+			return linkData;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public RowSet selectLinkRS() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection selectLinkTO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void printLink() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

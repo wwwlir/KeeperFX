@@ -57,6 +57,8 @@ public class KeePassLayoutController {
 			Account selectItem = treeGroupAccaunt.getSelectionModel().getSelectedItem().getValue();
 			String selectedGroup = selectItem.getName();
 			tempAccount.setGroup(selectedGroup);
+		}else{
+			tempAccount.setGroup("Home");
 		}
 		tempAccount.setIsGroup(0);
 		

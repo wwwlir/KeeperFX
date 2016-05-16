@@ -12,4 +12,7 @@ public class FirefirdDAOFactory extends DAOFactory {
 	public AccountDAO getAccountDAO(){
 		return new FirebirdAccountDAO();
 	}
+	public LinkDAO getLinkDAO(){
+		return new FirebirdLinkDAO();
+	}
 }

@@ -7,6 +7,7 @@ public abstract class DAOFactory {
 	public abstract PersonDAO getPersonDAO();
 	public abstract DatabaseDAO getDatabaseDAO();
 	public abstract AccountDAO getAccountDAO();
+	public abstract LinkDAO getLinkDAO();
 	
 	public static DAOFactory getDAOFactory(int whichFactory){
 		switch (whichFactory) {
