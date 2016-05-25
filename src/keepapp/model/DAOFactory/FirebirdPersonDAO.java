@@ -20,43 +20,13 @@ import keepapp.model.Person;
 public class FirebirdPersonDAO implements PersonDAO {
 	
 	int setIDPerson;
-	private final String DRIVER = "org.firebirdsql.jdbc.FBDriver";
-	private final String DBURL = "jdbc:firebirdsql:embedded:C:\\FirebirdDatabase\\FDBT.FDB";
-	Connection conn = null;
-	
-	private Connection createConnection(){
-		
-		try {
-			Class.forName(DRIVER);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			conn = DriverManager.getConnection(DBURL, "SYSDBA", "masterkey");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return conn;
-	}
-	private void closeConnection(Statement statement){
-		try {
-			conn.close();
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public int insertPerson(Person person) {
 		Date getBirthday = Date.valueOf(person.getBirthday());
 		String strSQL = "insert into persons (fname, lname, address, phonenumbers, birthday, note, ISGROUP, groupname) values (?,?,?,?,?,?,?,?)";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setString(1, person.getFirstName());
 			stmt.setString(2, person.getLastName());
@@ -67,7 +37,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			stmt.setInt(7, person.getIsGroup());
 			stmt.setString(8, person.getGroup());
 			stmt.executeUpdate();
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,11 +51,11 @@ public class FirebirdPersonDAO implements PersonDAO {
 		findPerson(person);
 		String strSQL = "delete from PERSONS where id=?";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setInt(1, setIDPerson);
 			stmt.executeUpdate();
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,7 +68,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 		// TODO Auto-generated method stub
 		String strSQL = "select ID from PERSONS where fname=? and lname=?";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setString(1, person.getFirstName());
 			stmt.setString(2, person.getLastName());
@@ -106,7 +76,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			res.next();
 			int type = res.getInt("ID");
 			this.setIDPerson = type;
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,7 +90,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 		Date getBirthday = Date.valueOf(person.getBirthday());
 		String strSQL = "update PERSONS set fname=?, lname=?, address=?, phonenumbers=?, birthday=?, note=? where id=?";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setString(1, person.getFirstName());
 			stmt.setString(2, person.getLastName());
@@ -130,7 +100,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			stmt.setString(6, person.getNote());
 			stmt.setInt(7, person.getPersonID());
 			stmt.executeUpdate();
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -165,7 +135,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 		String strSQL = "select id, fname, lname, groupname from persons where isgroup=0";
 		Person tempPerson;
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {
@@ -175,7 +145,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 				personData.add(tempPerson);
 //				personData.add(new Person(res.getInt("id"), res.getString("fname"),res.getString("lname")));
 			}
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -188,7 +158,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 	public Person getPersonByID(int ID) {
 		String strSQL = "select ID, FNAME, LNAME, ADDRESS, PHONENUMBERS, BIRTHDAY, GROUPNAME, ISGROUP, NOTE from PERSONS where ID=?";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setInt(1, ID);
 			ResultSet res =  stmt.executeQuery();
@@ -202,7 +172,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 			person.setBirthday(birthLocalDate);
 			person.setGroup(res.getString("groupname"));
 			person.setIsGroup(res.getInt("isgroup"));
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return person;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -214,11 +184,11 @@ public class FirebirdPersonDAO implements PersonDAO {
 	public boolean deletePersonByID(int ID) {//Удаление по индексу
 		String strSQL = "delete from PERSONS where id=?";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setInt(1, ID);
 			stmt.executeUpdate();
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -232,7 +202,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 		Person tempPerson;
 		String strSQL = "select id, fname, groupname from persons where isgroup=1";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {
@@ -241,7 +211,7 @@ public class FirebirdPersonDAO implements PersonDAO {
 				tempPerson.setIsGroup(1);
 				personData.add(tempPerson);
 			}
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return personData;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

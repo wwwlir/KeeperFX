@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="keepapp.view.KeeLinkLayers.KeeLinkEditDialogController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="keepapp.view.KeeLinkLayers.KeeLinkEditDialogController">
    <children>
       <CheckBox fx:id="isGroupCheck" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" text="Это группа" />
       <Button layoutX="102.0" layoutY="225.0" mnemonicParsing="false" onAction="#handlerCancel" text="Cancel" />
@@ -18,7 +17,7 @@
             <Label text="Комментарии:" GridPane.rowIndex="2" />
             <TextField fx:id="nameField" GridPane.columnIndex="1" />
             <TextField fx:id="linkField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="noteField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextArea fx:id="noteField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="77.0" />

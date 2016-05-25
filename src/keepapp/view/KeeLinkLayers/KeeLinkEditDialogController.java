@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ public class KeeLinkEditDialogController {
 	@FXML
 	private TextField linkField;
 	@FXML
-	private TextField noteField;
+	private TextArea noteField;
 	@FXML
 	private CheckBox isGroupCheck;
 	

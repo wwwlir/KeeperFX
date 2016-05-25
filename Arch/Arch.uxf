@@ -4,9 +4,9 @@
   <element>
     <id>Text</id>
     <coordinates>
-      <x>270</x>
-      <y>510</y>
-      <w>70</w>
+      <x>380</x>
+      <y>590</y>
+      <w>80</w>
       <h>60</h>
     </coordinates>
     <panel_attributes>customelement=
@@ -26,8 +26,8 @@ group=1</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>270</x>
-      <y>150</y>
+      <x>300</x>
+      <y>140</y>
       <w>180</w>
       <h>70</h>
     </coordinates>
@@ -37,19 +37,20 @@ group=1</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>270</x>
-      <y>60</y>
+      <x>310</x>
+      <y>40</y>
       <w>180</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>UI</panel_attributes>
+    <panel_attributes>UI
+group=3</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLFrame</id>
     <coordinates>
       <x>270</x>
-      <y>230</y>
+      <y>220</y>
       <w>270</w>
       <h>170</h>
     </coordinates>
@@ -59,8 +60,8 @@ group=1</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>190</x>
-      <y>410</y>
+      <x>310</x>
+      <y>430</y>
       <w>180</w>
       <h>70</h>
     </coordinates>
@@ -71,8 +72,8 @@ group=2</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>200</x>
-      <y>500</y>
+      <x>320</x>
+      <y>580</y>
       <w>160</w>
       <h>90</h>
     </coordinates>
@@ -85,19 +86,20 @@ group=1</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>310</x>
-      <y>70</y>
+      <x>350</x>
+      <y>50</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Интерфейс</panel_attributes>
+    <panel_attributes>Интерфейс
+group=3</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>220</x>
-      <y>440</y>
+      <x>340</x>
+      <y>460</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -108,7 +110,7 @@ group=2</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>310</x>
+      <x>340</x>
       <y>160</y>
       <w>100</w>
       <h>20</h>
@@ -119,12 +121,13 @@ group=2</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>310</x>
-      <y>110</y>
+      <x>350</x>
+      <y>90</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Контроллеры</panel_attributes>
+    <panel_attributes>Контроллеры
+group=3</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

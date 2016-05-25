@@ -15,41 +15,12 @@ import javafx.collections.ObservableList;
 import keepapp.model.Link;
 
 public class FirebirdLinkDAO implements LinkDAO {
-	private final String DRIVER = "org.firebirdsql.jdbc.FBDriver";
-	private final String DBURL = "jdbc:firebirdsql:embedded:C:\\FirebirdDatabase\\FDBT.FDB";
-	Connection conn = null;
 	
-	private Connection createConnection(){
-		
-		try {
-			Class.forName(DRIVER);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			conn = DriverManager.getConnection(DBURL, "SYSDBA", "masterkey");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return conn;
-	}
-	private void closeConnection(Statement statement){
-		try {
-			conn.close();
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	@Override
 	public int insertLink(Link link) {
 		String strSQL = "insert into links (NAME, GROUPNAME, LINK, NOTE, ISGROUP) values (?,?,?,?,?)";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setString(1, link.getName());
 			stmt.setString(2, link.getGroup());
@@ -57,7 +28,7 @@ public class FirebirdLinkDAO implements LinkDAO {
 			stmt.setString(4, link.getNote());
 			stmt.setInt(5, link.getIsGroup());
 			stmt.executeUpdate();
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,11 +46,11 @@ public class FirebirdLinkDAO implements LinkDAO {
 	public boolean deleteLinkByID(int ID) {
 		String strSQL = "delete from LINKS where id=?";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setInt(1, ID);
 			stmt.executeUpdate();
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -92,7 +63,7 @@ public class FirebirdLinkDAO implements LinkDAO {
 	public Link getLinkByID(int ID) {
 		String strSQL = "select ID, NAME, GROUPNAME, ISGROUP, LINK, NOTE from LINKS where ID=?";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setInt(1, ID);
 			ResultSet res =  stmt.executeQuery();
@@ -102,7 +73,7 @@ public class FirebirdLinkDAO implements LinkDAO {
 			link.setNote(res.getString("note"));
 			link.setIsGroup(res.getInt("isgroup"));
 			link.setGroup(res.getString("groupname"));
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return link;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -121,7 +92,7 @@ public class FirebirdLinkDAO implements LinkDAO {
 	public boolean updateLink(Link link) {
 		String strSQL = "update LINKS set name=?, groupname=?, link=?, note=? where id=?";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setString(1, link.getName());
 			stmt.setString(2, link.getGroup());
@@ -129,7 +100,7 @@ public class FirebirdLinkDAO implements LinkDAO {
 			stmt.setString(4, link.getNote());
 			stmt.setInt(5, link.getID());
 			stmt.executeUpdate();
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -143,13 +114,13 @@ public class FirebirdLinkDAO implements LinkDAO {
 		ObservableList<Link> linkData = FXCollections.observableArrayList();
 		String strSQL = "select id, name from links where isgroup=0";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {				
 				linkData.add(new Link(res.getInt("id"), res.getString("name")));
 			}
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return linkData;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -163,7 +134,7 @@ public class FirebirdLinkDAO implements LinkDAO {
 		ObservableList<Link> linkGroup = FXCollections.observableArrayList();
 		String strSQL = "select id, name, groupname from links where isgroup=1";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {
@@ -171,7 +142,7 @@ public class FirebirdLinkDAO implements LinkDAO {
 				tempLink.setGroup(res.getString("groupname"));
 				linkGroup.add(tempLink);
 			}
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return linkGroup;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -189,14 +160,14 @@ public class FirebirdLinkDAO implements LinkDAO {
 //		}
 		String strSQL = "select id, name from links where isgroup=0 and groupname=?";
 		try {
-			Connection conn = createConnection();
+			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			stmt.setString(1, groupName);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {				
 				linkData.add(new Link(res.getInt("id"), res.getString("name")));
 			}
-			closeConnection(stmt);
+			FirebirdConnection.closeConnection(stmt);
 			return linkData;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
