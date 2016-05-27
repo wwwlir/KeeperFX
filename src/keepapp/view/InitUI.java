@@ -196,5 +196,24 @@ public class InitUI extends Application {
 	        return false;
 		}
 	}
+	
+	public boolean showSettingsEditDialog(){
+		try{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SettingsLAyers/SettingsEditDialog.fxml"));
+			AnchorPane pane = (AnchorPane)loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Settings edit");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(pane);
+			dialogStage.setScene(scene);
+			dialogStage.showAndWait();
+		}catch(IOException e){
+			
+		}
+		
+		return true;
+	}
 
 }

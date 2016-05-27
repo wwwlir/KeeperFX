@@ -40,7 +40,7 @@ public class RootLayoutController {
     
     @FXML
     private void handleSetting(){
-    	//mainApp.showSettingEditDialog();
+    	initUI.showSettingsEditDialog();
     }
     
     @FXML
