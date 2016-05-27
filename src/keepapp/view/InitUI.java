@@ -36,6 +36,9 @@ public class InitUI extends Application {
 			e.printStackTrace();
 		}
 	}
+	public void init(){
+		
+	}
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}

@@ -20,7 +20,6 @@ import keepapp.model.Person;
 public class FirebirdPersonDAO implements PersonDAO {
 	
 	int setIDPerson;
-
 	@Override
 	public int insertPerson(Person person) {
 		Date getBirthday = Date.valueOf(person.getBirthday());
