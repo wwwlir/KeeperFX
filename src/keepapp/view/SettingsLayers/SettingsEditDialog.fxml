@@ -21,7 +21,7 @@
           </Tab>
             <Tab text="Database">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="264.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="149.0" prefWidth="254.0">
                      <children>
                         <Label layoutX="7.0" layoutY="22.0" text="Patch base:" />
                         <TextField fx:id="basePatch" layoutX="69.0" layoutY="18.0" prefHeight="22.0" prefWidth="131.0" />
@@ -33,7 +33,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="63.0" layoutY="200.0" mnemonicParsing="false" text="Ok" />
-      <Button layoutX="100.0" layoutY="200.0" mnemonicParsing="false" text="Cancel" />
+      <Button layoutX="85.0" layoutY="194.0" mnemonicParsing="false" onAction="#handlerOk" text="Ok" />
+      <Button layoutX="122.0" layoutY="194.0" mnemonicParsing="false" onAction="#handlerDelete" text="Cancel" />
    </children>
 </AnchorPane>

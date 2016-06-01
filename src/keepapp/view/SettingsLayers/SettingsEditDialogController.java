@@ -2,25 +2,37 @@ package keepapp.view.SettingsLayers;
 
 import java.io.File;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import keepapp.MainApp;
+import javafx.stage.Stage;
+import keepapp.logic.SettingsRepository;
 
 public class SettingsEditDialogController {
+	
+	private Stage dialogStage;
 	
 	@FXML
 	private TextField basePatch;
 	
 	@FXML
 	private void initialize(){
-		
+		setSettings();
+	}
+	private void setSettings(){
+		basePatch.setText(SettingsRepository.settings.getPathDataBase());
 	}
 	//handlers
+	@FXML
+	private void handlerOk(){
+		SettingsRepository.settings.setPathDataBase(basePatch.getText());
+		SettingsRepository.saveSettings();
+		dialogStage.close();
+	}
+	@FXML
+	private void handlerDelete(){
+		dialogStage.close();
+	}
 	@FXML
 	private void browseBasePatch(){
 		FileChooser fileChooser = new FileChooser();
@@ -44,5 +56,8 @@ public class SettingsEditDialogController {
 		
 	}
 	//Other methods
+	public void setDialogStage(Stage dialogStage){
+		this.dialogStage = dialogStage;
+	}
 	
 }

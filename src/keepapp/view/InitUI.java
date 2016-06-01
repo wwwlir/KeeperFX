@@ -19,6 +19,7 @@ import keepapp.view.KeePassLayers.KeePassEditDialogController;
 import keepapp.view.KeePassLayers.KeePassLayoutController;
 import keepapp.view.PersonLayers.PersonEditDialogController;
 import keepapp.view.PersonLayers.PersonLayoutController;
+import keepapp.view.SettingsLayers.SettingsEditDialogController;
 
 public class InitUI extends Application {
 	private static Stage primaryStage;
@@ -208,6 +209,10 @@ public class InitUI extends Application {
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(pane);
 			dialogStage.setScene(scene);
+			
+			SettingsEditDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			
 			dialogStage.showAndWait();
 		}catch(IOException e){
 			
