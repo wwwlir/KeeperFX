@@ -15,4 +15,7 @@ public class FirefirdDAOFactory extends DAOFactory {
 	public LinkDAO getLinkDAO(){
 		return new FirebirdLinkDAO();
 	}
+	public NoteDAO getNoteDAO() {
+		return new FirebirdNoteDAO();
+	}
 }

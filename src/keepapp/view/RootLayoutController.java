@@ -59,5 +59,13 @@ public class RootLayoutController {
 	private void showKeeLinkView(){
 		initUI.showKeeLinkLayout();
 	}
+    @FXML
+	private void showNoteView(){
+    	initUI.showNoteLayout();
+	}
+    @FXML
+	private void showPlanDayView(){
+    	initUI.showPlanDayLayout();
+	}
 //end
 }

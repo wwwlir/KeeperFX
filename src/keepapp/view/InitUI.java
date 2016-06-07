@@ -17,6 +17,7 @@ import keepapp.view.KeeLinkLayers.KeeLinkEditDialogController;
 import keepapp.view.KeeLinkLayers.KeeLinkLayoutController;
 import keepapp.view.KeePassLayers.KeePassEditDialogController;
 import keepapp.view.KeePassLayers.KeePassLayoutController;
+import keepapp.view.NoteLayers.NoteLayoutController;
 import keepapp.view.PersonLayers.PersonEditDialogController;
 import keepapp.view.PersonLayers.PersonLayoutController;
 import keepapp.view.SettingsLayers.SettingsEditDialogController;
@@ -37,7 +38,7 @@ public class InitUI extends Application {
 			e.printStackTrace();
 		}
 	}
-	public void init(){
+	public void init(){//Инициализация перед методом start()
 		
 	}
 	public Stage getPrimaryStage() {
@@ -52,7 +53,6 @@ public class InitUI extends Application {
 	        Scene scene = new Scene(rootLayout);
 	        primaryStage.setScene(scene);
 	        RootLayoutController controller = loader.getController();
-	        //controller.setMainApp(this);
 	        controller.setInitUI(this);
 	        primaryStage.show();
 	    } catch (IOException e) {
@@ -66,7 +66,8 @@ public class InitUI extends Application {
 			AnchorPane mainLayout = (AnchorPane)loader.load();
 			rootLayout.setCenter(mainLayout);
 			MainLayoutController mainLController = loader.getController();
-			mainLController.setMainApp(this);
+//			mainLController.setMainApp(this);
+			mainLController.setLayout(mainLayout);
 		} catch (Exception e) {
             e.printStackTrace();
         }
@@ -219,6 +220,24 @@ public class InitUI extends Application {
 		}
 		
 		return true;
+	}
+	public void showNoteLayout() {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("View/NoteLayers/NoteLayout.fxml"));
+            BorderPane noteLayout = (BorderPane) loader.load();
+            rootLayout.setCenter(noteLayout);
+            NoteLayoutController controller = loader.getController();
+//            controller.setMainApp(this);
+//            controller.setItemsAccount();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+	public void showPlanDayLayout() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

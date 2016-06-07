@@ -2,9 +2,11 @@ package keepapp.logic;
 
 import keepapp.API.IKeeLink;
 import keepapp.API.IKeePass;
+import keepapp.API.INote;
 import keepapp.API.IPerson;
 import keepapp.API.implIKeeLink;
 import keepapp.API.implKeePass;
+import keepapp.API.implNote;
 import keepapp.API.implPerson;
 
 public class ObjectRepository {
@@ -16,5 +18,8 @@ public class ObjectRepository {
 	}
 	public static IKeeLink getIKeeLink(){
 		return new implIKeeLink();
+	}
+	public static INote getINote(){
+		return new implNote();
 	}
 }
