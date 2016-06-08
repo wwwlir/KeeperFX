@@ -9,12 +9,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
+import keepapp.API.ICommon;
 import keepapp.API.IKeeLink;
 import keepapp.logic.ObjectRepository;
 import keepapp.model.Link;
+import keepapp.view.IController;
 import keepapp.view.InitUI;
 
-public class KeeLinkLayoutController {
+public class KeeLinkLayoutController implements IController {
 
 	@FXML
 	private TreeView<Link> treeGroupLink;
@@ -29,10 +31,11 @@ public class KeeLinkLayoutController {
 	
 	private InitUI initUI;
 	IKeeLink iKeeLink = ObjectRepository.getIKeeLink();
+	ICommon iCommon = ObjectRepository.getImplCommon();
 	
 	@FXML
 	private void initialize(){
-		initTreeGrtoup();
+		initTreeGroup();
 		treeGroupLink.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showGroupItems(newValue));
 		
 		setItemsLink();
@@ -111,7 +114,7 @@ public class KeeLinkLayoutController {
 	public void setItemsLink(){
 		linkTable.setItems(iKeeLink.getShortListLink());
 	}
-	private void initTreeGrtoup(){//Реализовать фильтр видимых элементов в зависимости от группы. Нужно создать событие при выборе группы
+	private void initTreeGroup(){//Реализовать фильтр видимых элементов в зависимости от группы. Нужно создать событие при выборе группы
 		Link homeLink = new Link(-1, "Home");
 		homeLink.setIsGroup(1);
 		TreeItem<Link> rootLinkTreeItem = new TreeItem<Link>(homeLink);

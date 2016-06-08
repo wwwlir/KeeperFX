@@ -154,10 +154,6 @@ public class FirebirdLinkDAO implements LinkDAO {
 	@Override
 	public ObservableList<Link> getShortLink(String groupName) {
 		ObservableList<Link> linkData = FXCollections.observableArrayList();
-//		String strTemp = "select id, name, login from accounts";
-//		if(groupName.length() != 0){
-//			strTemp.concat(" where isgroup=0 and groupname=?");
-//		}
 		String strSQL = "select id, name from links where isgroup=0 and groupname=?";
 		try {
 			Connection conn = FirebirdConnection.createConnection();

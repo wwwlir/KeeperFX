@@ -2,13 +2,16 @@ package keepapp.view.NoteLayers;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.Alert.AlertType;
 import keepapp.API.INote;
 import keepapp.logic.ObjectRepository;
+import keepapp.model.Link;
 import keepapp.model.Note;
 import keepapp.view.InitUI;
 
@@ -26,7 +29,12 @@ public class NoteLayoutController {
 	
 	@FXML
 	private void initialize(){
+		initTreeGroup();
+		treeGroupNote.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showGroupItems(newValue));
 		
+		setItemsNote();
+		nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+		noteTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showNoteDetails(newValue));
 	}
 	public void setMainApp(InitUI initUI){
 		this.initUI = initUI;
@@ -34,15 +42,47 @@ public class NoteLayoutController {
 	//Handlers method
 	@FXML
 	private void handleNewNote(){
+		Note tempNote = new Note();
+		if(treeGroupNote.getSelectionModel().getSelectedItem() != null){
+			Note selectItem = treeGroupNote.getSelectionModel().getSelectedItem().getValue();
+			String selectedGroup = selectItem.getName();
+			tempNote.setGroup(selectedGroup);
+		}else{
+			tempNote.setGroup("Home");
+		}
+		tempNote.setIsGroup(0);
 		
+		boolean okClicked = initUI.showNoteEditDialog(tempNote);
+		if (okClicked) {
+			iNote.addNote(tempNote);
+        	initialize();
+        }
 	}
 	@FXML
 	private void handleEditNote(){
-		
+		Note selectedNote = noteTable.getSelectionModel().getSelectedItem();
+		if(selectedNote != null){
+			boolean okClicked = initUI.showNoteEditDialog(selectedNote);
+			if(okClicked){
+				iNote.updateNoteByID(selectedNote);
+				initialize();
+			}
+		}else{
+			// Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(initUI.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No note Selected");
+            alert.setContentText("Please select a note in the table.");
+            alert.showAndWait();
+		}
 	}
 	@FXML
 	private void handleDeleteNote(){
-		
+		Note selectNote = noteTable.getSelectionModel().getSelectedItem();//Удаляет только из таблицы
+		int ID = selectNote.getID();
+		iNote.deleteNoteByID(ID);
+		initialize();
 	}
 	//Other methods
 	private void showNoteDetails(Note note){
@@ -61,9 +101,8 @@ public class NoteLayoutController {
 		note.setGroup(tempNote.getGroup());
 		note.setNote(tempNote.getNote());
 		note.setName(tempNote.getName());
-		note.setNote(tempNote.getNote());
 	}
-	public void setItemsLink(){
+	public void setItemsNote(){
 		noteTable.setItems(iNote.getShortListNote());
 	}
 	private void initTreeGroup(){

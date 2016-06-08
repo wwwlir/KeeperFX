@@ -1,9 +1,7 @@
 package keepapp.API;
 
 import javafx.collections.ObservableList;
-import keepapp.model.Account;
 import keepapp.model.Link;
-import keepapp.model.DAOFactory.AccountDAO;
 import keepapp.model.DAOFactory.DAOFactory;
 import keepapp.model.DAOFactory.LinkDAO;
 

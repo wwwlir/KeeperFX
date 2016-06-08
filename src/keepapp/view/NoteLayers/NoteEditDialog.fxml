@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="keepapp.view.NoteLayers.NoteEditDialogController">
+   <children>
+      <CheckBox fx:id="isGroupCheck" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" text="Это группа" />
+      <Button layoutX="202.0" layoutY="222.0" mnemonicParsing="false" onAction="#handlerCancel" text="Cancel" />
+      <Button layoutX="165.0" layoutY="222.0" mnemonicParsing="false" onAction="#handlerOk" text="OK" />
+      <GridPane layoutX="10.0" layoutY="10.0" prefHeight="22.0" prefWidth="393.0">
+         <children>
+            <Label prefHeight="14.0" prefWidth="57.0" text="Название:" />
+            <TextField fx:id="nameField" prefHeight="22.0" prefWidth="311.0" GridPane.columnIndex="1" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="144.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="3.0" prefWidth="194.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <TextArea fx:id="noteField" layoutY="53.0" prefHeight="141.0" prefWidth="415.0" />
+   </children>
+</AnchorPane>
