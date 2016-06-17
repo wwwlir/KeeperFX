@@ -1,5 +1,10 @@
 package keepapp.view;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import keepapp.MainApp;
 
@@ -49,7 +54,32 @@ public class RootLayoutController {
     }
     @FXML
 	private void showPersonView(){
-		initUI.showPersonLayout();
+    	initUI.showPersonLayout();
+//    	final Task task = new Task<Void>() {
+//
+//			@Override
+//			protected Void call() throws Exception {
+//				// TODO Auto-generated method stub
+//				initUI.showPersonLayout();
+//				return null;
+//			}
+//		};
+    	
+//		new Thread(task).start();
+		
+//		Service service = new Service<Void>() {
+//			@Override
+//			protected Task createTask() {
+//				// TODO Auto-generated method stub
+//				return task;
+//			}
+//			
+//		};
+//		service.start();
+		
+//		ExecutorService es = Executors.newSingleThreadExecutor();
+//		es.submit(task);
+//		es.shutdown();
 	}
     @FXML
 	private void showKeePassView(){

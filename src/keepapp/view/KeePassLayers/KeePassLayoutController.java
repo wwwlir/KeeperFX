@@ -135,11 +135,11 @@ public class KeePassLayoutController {
 		treeGroupAccaunt.setRoot(rootAccountTreeItem);
 	}
 	private void showGroupItems(TreeItem<Account> setGroup){
-		if (!(setGroup.getValue().getID()<0)) {
+		if (setGroup == null || setGroup.getValue().getID()<0) {
+			loadItemsGroupInTable("Home");
+		}else{
 			loadDataAccount(setGroup.getValue());
 			loadItemsGroupInTable(setGroup.getValue().getName());
-		}else{
-			loadItemsGroupInTable("Home");
 		}
 	}
 	private void loadItemsGroupInTable(String groupName){

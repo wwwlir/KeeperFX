@@ -1,6 +1,7 @@
 package keepapp.API;
 
 import javafx.collections.ObservableList;
+import keepapp.logic.util.ThreadAbs;
 import keepapp.model.Person;
 import keepapp.model.DAOFactory.DAOFactory;
 import keepapp.model.DAOFactory.PersonDAO;
@@ -11,6 +12,14 @@ public class implPerson implements IPerson {
 		getPersonDAO();
 	}
 	public void getPersonDAO(){
+//		new ThreadAbs("CreatePersonDAO") {
+//
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		};
 		DAOFactory firebirtdFactory = DAOFactory.getDAOFactory(DAOFactory.FIREBIRD);
 		PersonDAO personDAO = firebirtdFactory.getPersonDAO();
 		this.personDAO = personDAO;

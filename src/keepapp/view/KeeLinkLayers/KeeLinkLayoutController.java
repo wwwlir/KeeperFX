@@ -129,11 +129,11 @@ public class KeeLinkLayoutController implements IController {
 		treeGroupLink.setRoot(rootLinkTreeItem);
 	}
 	private void showGroupItems(TreeItem<Link> setGroup){
-		if (!(setGroup.getValue().getID()<0)) {
+		if (setGroup == null || setGroup.getValue().getID()<0) {
+			loadItemsGroupInTable("Home");
+		}else{
 			loadDataLink(setGroup.getValue());
 			loadItemsGroupInTable(setGroup.getValue().getName());
-		}else{
-			loadItemsGroupInTable("Home");
 		}
 	}
 	private void loadItemsGroupInTable(String groupName){

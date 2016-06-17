@@ -79,8 +79,14 @@ public class NoteLayoutController {
 	}
 	@FXML
 	private void handleDeleteNote(){
+		int ID;
 		Note selectNote = noteTable.getSelectionModel().getSelectedItem();//Удаляет только из таблицы
-		int ID = selectNote.getID();
+		if (selectNote != null) {
+			ID = selectNote.getID();
+		} else {
+			ID = treeGroupNote.getSelectionModel().getSelectedItem().getValue().getID();
+		}
+		
 		iNote.deleteNoteByID(ID);
 		initialize();
 	}
@@ -120,11 +126,12 @@ public class NoteLayoutController {
 		treeGroupNote.setRoot(rootNoteTreeItem);		
 	}
 	private void showGroupItems(TreeItem<Note> setGroup){
-		if (!(setGroup.getValue().getID()<0)) {
+		
+		if (setGroup == null || setGroup.getValue().getID()<0) {
+			loadItemsGroupInTable("Home");
+		}else{
 			loadDataNote(setGroup.getValue());
 			loadItemsGroupInTable(setGroup.getValue().getName());
-		}else{
-			loadItemsGroupInTable("Home");
 		}
 	}
 	private void loadItemsGroupInTable(String groupName){
