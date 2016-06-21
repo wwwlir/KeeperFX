@@ -9,6 +9,7 @@ public abstract class DAOFactory {
 	public abstract AccountDAO getAccountDAO();
 	public abstract LinkDAO getLinkDAO();
 	public abstract NoteDAO getNoteDAO();
+	public abstract IElementDAO getElementDAO();
 	
 	public static DAOFactory getDAOFactory(int whichFactory){
 		switch (whichFactory) {

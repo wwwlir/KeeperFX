@@ -1,9 +1,10 @@
-package keepapp.API;
+package keepapp.services;
 
 import javafx.collections.ObservableList;
 import keepapp.model.Link;
 import keepapp.model.DAOFactory.DAOFactory;
 import keepapp.model.DAOFactory.LinkDAO;
+import keepapp.services.API.IKeeLink;
 
 public class implIKeeLink implements IKeeLink {
 	private LinkDAO linkDAO;

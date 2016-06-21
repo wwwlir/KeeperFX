@@ -9,10 +9,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
-import keepapp.API.IKeePass;
-import keepapp.API.implKeePass;
 import keepapp.logic.ObjectRepository;
 import keepapp.model.Account;
+import keepapp.services.implKeePass;
+import keepapp.services.API.IKeePass;
 import keepapp.view.InitUI;
 
 public class KeePassLayoutController {

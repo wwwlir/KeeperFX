@@ -10,20 +10,22 @@ import javax.sql.RowSet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import keepapp.model.IElement;
 import keepapp.model.Note;
+import keepapp.model.implElement;
 
-public class FirebirdNoteDAO implements NoteDAO {
+public class FirebirdNoteDAO2 implements IElementDAO {
 
 	@Override
-	public int insertNote(Note note) {
+	public int insertElement(IElement element) {
 		String strSQL = "insert into notes (NAME, GROUPNAME, NOTE, ISGROUP) values (?,?,?,?)";
 		try {
 			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
-			stmt.setString(1, note.getName());
-			stmt.setString(2, note.getGroup());
-			stmt.setString(3, note.getNote());
-			stmt.setInt(4, note.getIsGroup());
+			stmt.setString(1, element.getName());
+			stmt.setString(2, element.getGroup());
+			stmt.setString(3, element.getNote());
+			stmt.setInt(4, element.getIsGroup());
 			stmt.executeUpdate();
 			FirebirdConnection.closeConnection(stmt);
 		} catch (SQLException e) {
@@ -34,13 +36,7 @@ public class FirebirdNoteDAO implements NoteDAO {
 	}
 
 	@Override
-	public boolean deleteNote(Note note) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deleteNoteByID(int ID) {
+	public boolean deleteElementByID(int ID) {
 		String strSQL = "delete from NOTES where id=?";
 		try {
 			Connection conn = FirebirdConnection.createConnection();
@@ -57,7 +53,7 @@ public class FirebirdNoteDAO implements NoteDAO {
 	}
 
 	@Override
-	public Note getNoteByID(int ID) {
+	public IElement getElementByID(int ID) {
 		String strSQL = "select ID, NAME, GROUPNAME, ISGROUP, NOTE from NOTES where ID=?";
 		try {
 			Connection conn = FirebirdConnection.createConnection();
@@ -79,21 +75,21 @@ public class FirebirdNoteDAO implements NoteDAO {
 	}
 
 	@Override
-	public Note findNote(Note note) {
+	public IElement findElement(IElement element) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateNote(Note note) {
+	public boolean updateElement(IElement element) {
 		String strSQL = "update NOTES set name=?, groupname=?, note=? where id=?";
 		try {
 			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
-			stmt.setString(1, note.getName());
-			stmt.setString(2, note.getGroup());
-			stmt.setString(3, note.getNote());
-			stmt.setInt(4, note.getID());
+			stmt.setString(1, element.getName());
+			stmt.setString(2, element.getGroup());
+			stmt.setString(3, element.getNote());
+			stmt.setInt(4, element.getID());
 			stmt.executeUpdate();
 			FirebirdConnection.closeConnection(stmt);
 			return true;
@@ -105,18 +101,18 @@ public class FirebirdNoteDAO implements NoteDAO {
 	}
 
 	@Override
-	public ObservableList<Note> getNoteData() {
-		ObservableList<Note> noteData = FXCollections.observableArrayList();
+	public ObservableList<IElement> getElementData() {
+		ObservableList<IElement> elementData = FXCollections.observableArrayList();
 		String strSQL = "select id, name from notes where isgroup=0";
 		try {
 			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {				
-				noteData.add(new Note(res.getInt("id"), res.getString("name")));
+				elementData.add(new Note(res.getInt("id"), res.getString("name")));
 			}
 			FirebirdConnection.closeConnection(stmt);
-			return noteData;
+			return elementData;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,20 +121,20 @@ public class FirebirdNoteDAO implements NoteDAO {
 	}
 
 	@Override
-	public ObservableList<Note> getNoteGroup() {
-		ObservableList<Note> noteGroup = FXCollections.observableArrayList();
+	public ObservableList<IElement> getElementGroup() {
+		ObservableList<IElement> elementGroup = FXCollections.observableArrayList();
 		String strSQL = "select id, name, groupname from notes where isgroup=1";
 		try {
 			Connection conn = FirebirdConnection.createConnection();
 			PreparedStatement stmt = conn.prepareStatement(strSQL);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {
-				Note tempNote = new Note(res.getInt("id"), res.getString("name"));
-				tempNote.setGroup(res.getString("groupname"));
-				noteGroup.add(tempNote);
+				IElement tempElement = new implElement(res.getInt("id"), res.getString("name"));
+				tempElement.setGroup(res.getString("groupname"));
+				elementGroup.add(tempElement);
 			}
 			FirebirdConnection.closeConnection(stmt);
-			return noteGroup;
+			return elementGroup;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -147,8 +143,8 @@ public class FirebirdNoteDAO implements NoteDAO {
 	}
 
 	@Override
-	public ObservableList<Note> getShortNote(String groupName) {
-		ObservableList<Note> noteData = FXCollections.observableArrayList();
+	public ObservableList<IElement> getShortElement(String groupName) {
+		ObservableList<IElement> elementData = FXCollections.observableArrayList();
 		String strSQL = "select id, name from notes where isgroup=0 and groupname=?";
 		try {
 			Connection conn = FirebirdConnection.createConnection();
@@ -156,10 +152,10 @@ public class FirebirdNoteDAO implements NoteDAO {
 			stmt.setString(1, groupName);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {				
-				noteData.add(new Note(res.getInt("id"), res.getString("name")));
+				elementData.add(new implElement(res.getInt("id"), res.getString("name")));
 			}
 			FirebirdConnection.closeConnection(stmt);
-			return noteData;
+			return elementData;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -168,19 +164,13 @@ public class FirebirdNoteDAO implements NoteDAO {
 	}
 
 	@Override
-	public RowSet selectNoteRS() {
+	public RowSet selectElementRS() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection selectNoteTO() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void printNote() {
+	public void printElement() {
 		// TODO Auto-generated method stub
 
 	}

@@ -5,9 +5,9 @@ import javax.sql.RowSet;
 import javafx.collections.ObservableList;
 import keepapp.model.IElement;
 
-public class implCommonDAO implements ICommonDAO {
+public class ElementDAO implements IElementDAO {
 
-	public implCommonDAO() {
+	public ElementDAO() {
 		// TODO Auto-generated constructor stub
 	}
 

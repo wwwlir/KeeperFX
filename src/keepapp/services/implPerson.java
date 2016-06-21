@@ -1,10 +1,11 @@
-package keepapp.API;
+package keepapp.services;
 
 import javafx.collections.ObservableList;
 import keepapp.logic.util.ThreadAbs;
 import keepapp.model.Person;
 import keepapp.model.DAOFactory.DAOFactory;
 import keepapp.model.DAOFactory.PersonDAO;
+import keepapp.services.API.IPerson;
 
 public class implPerson implements IPerson {
 	private PersonDAO personDAO;

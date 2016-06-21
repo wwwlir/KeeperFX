@@ -9,10 +9,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
-import keepapp.API.ICommon;
-import keepapp.API.IKeeLink;
 import keepapp.logic.ObjectRepository;
 import keepapp.model.Link;
+import keepapp.services.API.ICommon;
+import keepapp.services.API.IKeeLink;
 import keepapp.view.IController;
 import keepapp.view.InitUI;
 

@@ -1,15 +1,15 @@
 package keepapp.logic;
 
-import keepapp.API.ICommon;
-import keepapp.API.IKeeLink;
-import keepapp.API.IKeePass;
-import keepapp.API.INote;
-import keepapp.API.IPerson;
-import keepapp.API.implCommon;
-import keepapp.API.implIKeeLink;
-import keepapp.API.implKeePass;
-import keepapp.API.implINote;
-import keepapp.API.implPerson;
+import keepapp.services.implCommon;
+import keepapp.services.implIKeeLink;
+import keepapp.services.implINote;
+import keepapp.services.implKeePass;
+import keepapp.services.implPerson;
+import keepapp.services.API.ICommon;
+import keepapp.services.API.IKeeLink;
+import keepapp.services.API.IKeePass;
+import keepapp.services.API.INote;
+import keepapp.services.API.IPerson;
 
 public class ObjectRepository {
 	public static IPerson getIPerson(){

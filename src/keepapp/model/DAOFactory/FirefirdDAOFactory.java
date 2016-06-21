@@ -18,7 +18,7 @@ public class FirefirdDAOFactory extends DAOFactory {
 	public NoteDAO getNoteDAO() {
 		return new FirebirdNoteDAO();
 	}
-	public implCommonDAO getImplCommonDAO(){
-		return new implCommonDAO();
+	public IElementDAO getElementDAO(){
+		return new ElementDAO();
 	}
 }

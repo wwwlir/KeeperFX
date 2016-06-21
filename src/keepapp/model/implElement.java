@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public abstract class implElement implements IElement {
+public class implElement implements IElement {
 
 	final IntegerProperty ID;
 	final StringProperty name;

@@ -1,9 +1,10 @@
-package keepapp.API;
+package keepapp.services;
 
 import javafx.collections.ObservableList;
 import keepapp.model.Note;
 import keepapp.model.DAOFactory.DAOFactory;
 import keepapp.model.DAOFactory.NoteDAO;
+import keepapp.services.API.INote;
 
 public class implINote implements INote {
 	private NoteDAO noteDAO;

@@ -1,25 +1,25 @@
-package keepapp.API;
+package keepapp.services;
 
 import javafx.collections.ObservableList;
 import keepapp.model.IElement;
-import keepapp.model.Link;
 import keepapp.model.DAOFactory.DAOFactory;
-import keepapp.model.DAOFactory.LinkDAO;
+import keepapp.model.DAOFactory.IElementDAO;
+import keepapp.model.DAOFactory.NoteDAO;
+import keepapp.services.API.IElementManager;
 
-public class implCommon implements ICommon {
-	private LinkDAO linkDAO;
-	public implCommon(){
-		getLinkDAO();
+public class ElementManager implements IElementManager {
+	private IElementDAO elementDAO;
+	void ElementManager(){
+		createElementDAO();
 	}
-	public void getLinkDAO(){
+	private void createElementDAO(){
 		DAOFactory firebirtdFactory = DAOFactory.getDAOFactory(DAOFactory.FIREBIRD);
-		LinkDAO linkDAO = firebirtdFactory.getLinkDAO();
-		this.linkDAO = linkDAO;
+		this.elementDAO = firebirtdFactory.getElementDAO();
 	}
 	@Override
 	public ObservableList<IElement> getShortList() {
-		ObservableList linkList = linkDAO.getLinkData();
-		return linkList;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -57,5 +57,5 @@ public class implCommon implements ICommon {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 }

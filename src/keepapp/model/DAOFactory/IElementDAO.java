@@ -4,7 +4,7 @@ import javax.sql.RowSet;
 import javafx.collections.ObservableList;
 import keepapp.model.IElement;
 
-public interface ICommonDAO {
+public interface IElementDAO {
 	public int insertElement(IElement element);
 	public boolean deleteElementByID(int ID);
 	public IElement getElementByID(int ID);

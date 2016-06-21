@@ -9,10 +9,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
-import keepapp.API.INote;
 import keepapp.logic.ObjectRepository;
 import keepapp.model.Link;
 import keepapp.model.Note;
+import keepapp.services.API.INote;
 import keepapp.view.InitUI;
 
 public class NoteLayoutController {
