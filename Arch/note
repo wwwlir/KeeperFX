@@ -1,3 +1,6 @@
+Path = C:/Program Files/Java/jre1.8.0_40/bin/server;C:/Program Files/Java/jre1.8.0_40/bin;C:/Program Files/Java/jre1.8.0_40/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_40\bin;D:\port\eclipseEE;C:\Firebird;
+Сейчас прописан в настройках запуска проекта. Enviroment
+***********************************
 Добавить возможность установки пароля по жеанию на каждый слой программы по отдельности
 ***********************************
 Эфективное построение дерева групп и элементов

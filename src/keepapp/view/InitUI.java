@@ -34,7 +34,7 @@ public class InitUI extends Application {
 	
 	@Override
 	public void start(final Stage primaryStage) throws Exception {//final Stage primaryStage При объявлении переменной final обязательно ее инициализация, но не в параметрах
-		Thread.sleep(10000);
+//		Thread.sleep(10000);
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Title");
 		//this.primaryStage.getIcons().add(new Image("file:resources/images/Address_Book.png"));
